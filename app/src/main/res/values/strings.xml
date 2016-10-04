@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Filepicker</string>
+    <string name="icon_heart">&#xf004;</string>
+    <string name="icon_folder">&#xf07b;</string>
+    <string name="icon_pdf">&#xf1c1;</string>
+    <string name="icon_image">&#xf03e;</string>
+    <string name="icon_file">&#xf15b;</string>
+</resources>
