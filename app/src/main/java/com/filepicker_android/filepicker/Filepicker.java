@@ -41,7 +41,12 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
     @Override
     public void onBackPressed() {
-        getSupportFragmentManager().popBackStack();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            goBackToCallingActivity();
+        }
+        else {
+            getSupportFragmentManager().popBackStack();
+        }
     }
 
     @Override
@@ -57,14 +62,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.donePickingButton) {
-            Log.i("Notifying: ", "DONE");
-            ArrayList<FilepickerFile> list = ((FilepickerContext)getApplicationContext())
-                    .getCollection()
-                    .copyPicks();
-            Intent backToActivity = new Intent();
-            backToActivity.putParcelableArrayListExtra("data", list);
-            setResult(1, backToActivity);
-            finish();
+            goBackToCallingActivity();
         }
         else if (item.getItemId() == R.id.picksCount) {
             transitionFragment(PICKS_LIST_FRAGMENT);
@@ -102,5 +100,16 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
                 ft.commit();
                 break;
         }
+    }
+
+    private void goBackToCallingActivity() {
+        Log.i("Notifying: ", "DONE");
+        ArrayList<FilepickerFile> list = ((FilepickerContext)getApplicationContext())
+                .getCollection()
+                .copyPicks();
+        Intent backToActivity = new Intent();
+        backToActivity.putParcelableArrayListExtra("data", list);
+        setResult(1, backToActivity);
+        finish();
     }
 }
