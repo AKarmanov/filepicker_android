@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface FragmentToActivityInterface {
     void addRemoveItem(List<FilepickerFile> files, boolean add, int position);
+    void transitionFragment(int switchCase);
 }

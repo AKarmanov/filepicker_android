@@ -29,7 +29,11 @@ public class FilepickerCollection {
         return picks.size();
     }
 
-    public ArrayList<FilepickerFile> getPicks() {
+    public List<FilepickerFile> getPicks() {
+        return picks;
+    }
+
+    public ArrayList<FilepickerFile> copyPicks() {
         return new ArrayList<>(picks);
     }
 }

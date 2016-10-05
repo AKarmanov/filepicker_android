@@ -25,10 +25,12 @@ public class FilepickerFile implements Parcelable {
 
     public FilepickerFile() {}
 
-    public FilepickerFile(String name, String path, String type, long size, long lastModified, boolean isDir) {
+    public FilepickerFile(String name, String path, String type, int childCount,
+                          long size, long lastModified, boolean isDir) {
         this.name = name;
         this.path = path;
         this.type = type;
+        this.childCount = childCount;
         this.size = size;
         this.lastModified = lastModified;
         this.isDir = isDir;
@@ -118,6 +120,18 @@ public class FilepickerFile implements Parcelable {
             unit = " GB";
         }
         return String.format(Locale.ENGLISH, "%.1f %s", s, unit);
+    }
+
+    public FilepickerFile deepCopy() {
+        return new FilepickerFile(
+                this.name,
+                this.path,
+                this.type,
+                this.childCount,
+                this.size,
+                this.lastModified,
+                this.isDir
+        );
     }
 
 
