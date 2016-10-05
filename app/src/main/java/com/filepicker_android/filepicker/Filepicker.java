@@ -2,6 +2,7 @@ package com.filepicker_android.filepicker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,7 +41,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
     @Override
     public void onBackPressed() {
-
+        getSupportFragmentManager().popBackStack();
     }
 
     @Override
@@ -91,7 +92,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
             case LIST_FRAGMENT :
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.add(R.id.fragmentContainer, new FilePickerListFragment());
-                ft.addToBackStack(null);
+                ft.addToBackStack("list-fragment");
                 ft.commit();
                 break;
             case PICKS_LIST_FRAGMENT :

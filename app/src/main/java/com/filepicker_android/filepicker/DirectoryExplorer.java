@@ -6,6 +6,7 @@ import android.webkit.MimeTypeMap;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Allows to explore directories on the device
@@ -16,7 +17,14 @@ import java.util.List;
 public class DirectoryExplorer {
 
 
+    private List<String> visitedPaths;
+
+    public DirectoryExplorer() {
+        visitedPaths = new ArrayList<>();
+    }
+
     public List<FilepickerFile> getFiles(String path) {
+        visitedPaths.add(path);
         path = path == null ? getInitialPath() : path;
         File[] files = getDirectoryContents(path);
         List<FilepickerFile> list = new ArrayList<>();
@@ -36,6 +44,21 @@ public class DirectoryExplorer {
         }
         getMimeTypesForFiles(list);
         return list;
+    }
+
+    public List<String> getVisitedPaths() {
+        return visitedPaths;
+    }
+
+    public void setVisitedPaths(List<String> visitedPaths) {
+        this.visitedPaths = visitedPaths;
+    }
+
+    public String getLastPath() {
+        if (visitedPaths.size() == 0) {
+            return null;
+        }
+        return visitedPaths.get(visitedPaths.size() - 1);
     }
 
     private void getMimeTypesForFiles(List<FilepickerFile> files) {

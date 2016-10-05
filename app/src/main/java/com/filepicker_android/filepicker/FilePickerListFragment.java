@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class FilePickerListFragment extends ListFragment {
 
+    private static final String SAVED_PATHS = "paths";
     private DirectoryExplorer de;
     private List<FilepickerFile> files;
     private FilePickerListAdapter adapter;
@@ -42,7 +44,10 @@ public class FilePickerListFragment extends ListFragment {
         filepicker = (Filepicker) getActivity();
         appContext = getActivity().getApplicationContext();
         de = new DirectoryExplorer();
-        new GetFilesTask().execute(new String[] {null});
+        if (savedInstanceState != null) {
+            de.setVisitedPaths(savedInstanceState.getStringArrayList(SAVED_PATHS));
+        }
+        new GetFilesTask().execute(de.getLastPath());
     }
 
     @Override
@@ -92,10 +97,10 @@ public class FilePickerListFragment extends ListFragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        outState.putStringArrayList(SAVED_PATHS, (ArrayList<String>) de.getVisitedPaths());
         super.onSaveInstanceState(outState);
         Log.i("****", "State saved");
     }
-
 
 
     private class FilePickerListAdapter extends ArrayAdapter<FilepickerFile> {

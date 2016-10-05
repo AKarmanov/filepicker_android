@@ -121,7 +121,7 @@ public class PicksListFragment extends ListFragment {
                 filepicker.addRemoveItem(list, false, 0);
                 adapter.notifyDataSetChanged();
                 if (picks.size() == 0) {
-                    filepicker.transitionFragment(Filepicker.LIST_FRAGMENT);
+                    filepicker.onBackPressed();
                 }
             }
         }
