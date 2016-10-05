@@ -28,14 +28,9 @@ import java.util.Locale;
 
 public class FilePickerListFragment extends ListFragment {
 
-    public interface ListFragmentLink {
-        void notifyFragment(ArrayList<FilepickerFile> list);
-    }
-
     private DirectoryExplorer de;
     private List<FilepickerFile> files;
     private FilePickerListAdapter adapter;
-    private Menu menu;
     private Context appContext;
     private Filepicker filepicker;
 
@@ -61,27 +56,6 @@ public class FilePickerListFragment extends ListFragment {
         setHasOptionsMenu(true);
         return v;
     }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.filepicker_options_menu, menu);
-        menu.getItem(0).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        this.menu = menu;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-//        super.onOptionsItemSelected(item);
-        Log.i("M", item.getTitle().toString());
-
-        if (item.getTitle().toString().equals("DONE")) {
-            filepicker.notifyFragment(((FilepickerContext)appContext).getCollection().getPicks());
-        }
-        return true;
-    }
-
-
 
     private class FilePickerListAdapter extends ArrayAdapter<FilepickerFile> {
 
@@ -147,21 +121,10 @@ public class FilePickerListFragment extends ListFragment {
         }
 
         private class CheckboxListener implements CheckBox.OnCheckedChangeListener {
-
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 int position = (int) compoundButton.getTag();
-                if (b) {
-                    FilepickerCollection fc = ((FilepickerContext)appContext).getCollection();
-                    fc.addFile(files.get(position));
-                    menu.getItem(0).setTitle(String.format(Locale.ENGLISH, "%d Pick(s)", fc.getCollectionSize()));
-                }
-                else {
-                    FilepickerCollection fc = ((FilepickerContext)appContext).getCollection();
-                    fc.removeFile(files.get(position));
-                    menu.getItem(0).setTitle(String.format(Locale.ENGLISH, "%d Pick(s)", fc.getCollectionSize()));
-                }
-                //Update count
+                filepicker.addRemoveItem(files, b, position);
             }
         }
 
