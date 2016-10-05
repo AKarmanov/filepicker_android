@@ -4,4 +4,7 @@
     <item
         android:id="@+id/picksCount"
         android:title="@string/icon_file"/>
+
+    <item android:id="@+id/donePickingButton"
+        android:title="DONE" />
 </menu>

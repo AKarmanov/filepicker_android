@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,15 +28,21 @@ import java.util.Locale;
 
 public class FilePickerListFragment extends ListFragment {
 
+    public interface ListFragmentLink {
+        void notifyFragment(ArrayList<FilepickerFile> list);
+    }
+
     private DirectoryExplorer de;
     private List<FilepickerFile> files;
     private FilePickerListAdapter adapter;
     private Menu menu;
     private Context appContext;
+    private Filepicker filepicker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        filepicker = (Filepicker) getActivity();
         appContext = getActivity().getApplicationContext();
         de = new DirectoryExplorer();
         new GetFilesTask().execute(new String[] {null});
@@ -67,6 +74,10 @@ public class FilePickerListFragment extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 //        super.onOptionsItemSelected(item);
         Log.i("M", item.getTitle().toString());
+
+        if (item.getTitle().toString().equals("DONE")) {
+            filepicker.notifyFragment(((FilepickerContext)appContext).getCollection().getPicks());
+        }
         return true;
     }
 
