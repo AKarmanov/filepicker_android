@@ -30,6 +30,12 @@ public class FilePickerListFragment extends ListFragment {
     private Filepicker filepicker;
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.i("****", "Attached");
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("****", "Created");
@@ -49,6 +55,7 @@ public class FilePickerListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
+        Log.i("****", "View created");
         setHasOptionsMenu(true);
         return v;
     }
@@ -76,6 +83,20 @@ public class FilePickerListFragment extends ListFragment {
         super.onDestroy();
         Log.i("****", "Destroyed");
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i("****", "view Destroyed");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i("****", "State saved");
+    }
+
+
 
     private class FilePickerListAdapter extends ArrayAdapter<FilepickerFile> {
 
