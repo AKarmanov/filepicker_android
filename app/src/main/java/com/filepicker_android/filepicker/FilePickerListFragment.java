@@ -229,18 +229,4 @@ public class FilePickerListFragment extends ListFragment {
             buildBreadCrumbs();
         }
     }
-
-    private class BreadCrumbListener implements Button.OnClickListener {
-
-        private String path;
-
-        public BreadCrumbListener(String path) {
-            this.path = path;
-        }
-
-        @Override
-        public void onClick(View view) {
-            Log.i("-----", path);
-        }
-    }
 }
