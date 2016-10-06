@@ -2,6 +2,7 @@ package com.filepicker_android.filepicker;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -10,15 +11,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
+ * List of files to pick from
+ *
  * @author alexander karmanov on 2016-10-01.
  */
 
@@ -59,7 +67,7 @@ public class FilePickerListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = super.onCreateView(inflater, container, savedInstanceState);
+        View v = inflater.inflate(R.layout.filepicker_list_container, container, false);
         Log.i("****", "View created");
         setHasOptionsMenu(true);
         return v;
@@ -75,6 +83,7 @@ public class FilePickerListFragment extends ListFragment {
     public void onResume() {
         super.onResume();
         Log.i("****", "Resumed");
+        buildBreadCrumbs();
     }
 
     @Override
@@ -102,6 +111,27 @@ public class FilePickerListFragment extends ListFragment {
         Log.i("****", "State saved");
     }
 
+    private void buildBreadCrumbs() {
+        LinearLayout v = (LinearLayout) getView().findViewById(R.id.lc_navigatiion);
+        v.removeAllViews();
+        List<String> paths = de.getVisitedPaths();
+        for (int i = 0; i < paths.size(); i++) {
+            String path = paths.get(i);
+            if (path != null) {
+                TextView tv = new TextView(appContext);
+                tv.setText("/");
+                tv.setTextColor(Color.DKGRAY);
+                v.addView(tv);
+
+                Button b = new Button(appContext);
+                int index = path.lastIndexOf("/") == 0 ? 0 : path.lastIndexOf("/") + 1;
+                b.setText(path.substring(index));
+                b.setBackgroundResource(R.drawable.breadcrumb_button);
+                b.setOnClickListener(new BreadCrumbListener(path));
+                v.addView(b);
+            }
+        }
+    }
 
     private class FilePickerListAdapter extends ArrayAdapter<FilepickerFile> {
 
@@ -196,6 +226,21 @@ public class FilePickerListFragment extends ListFragment {
                 files.addAll(filepickerFiles);
                 adapter.notifyDataSetChanged();
             }
+            buildBreadCrumbs();
+        }
+    }
+
+    private class BreadCrumbListener implements Button.OnClickListener {
+
+        private String path;
+
+        public BreadCrumbListener(String path) {
+            this.path = path;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Log.i("-----", path);
         }
     }
 }
