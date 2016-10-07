@@ -55,14 +55,14 @@ public class FilePickerListFragment extends ListFragment {
         if (savedInstanceState != null) {
             de.setVisitedPaths(savedInstanceState.getStringArrayList(SAVED_PATHS));
         }
-        new GetFilesTask().execute(de.getLastPath());
+        navigateToPath(de.getLastPath());
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         String newPath = files.get(position).getPath();
-        new GetFilesTask().execute(newPath);
+        navigateToPath(newPath);
     }
 
     @Override
@@ -111,6 +111,10 @@ public class FilePickerListFragment extends ListFragment {
         Log.i("****", "State saved");
     }
 
+    public void navigateToPath(String path) {
+        new GetFilesTask().execute(path);
+    }
+
     private void buildBreadCrumbs() {
         LinearLayout v = (LinearLayout) getView().findViewById(R.id.lc_navigatiion);
         v.removeAllViews();
@@ -119,15 +123,16 @@ public class FilePickerListFragment extends ListFragment {
             String path = paths.get(i);
             if (path != null) {
                 TextView tv = new TextView(appContext);
-                tv.setText("/");
+                tv.setText(" / ");
                 tv.setTextColor(Color.DKGRAY);
                 v.addView(tv);
 
                 Button b = new Button(appContext);
                 int index = path.lastIndexOf("/") == 0 ? 0 : path.lastIndexOf("/") + 1;
                 b.setText(path.substring(index));
+                b.setTextColor(Color.DKGRAY);
                 b.setBackgroundResource(R.drawable.breadcrumb_button);
-                b.setOnClickListener(new BreadCrumbListener(path));
+                b.setOnClickListener(new BreadCrumbListener(path, de, this));
                 v.addView(b);
             }
         }

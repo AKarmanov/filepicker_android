@@ -1,10 +1,12 @@
 package com.filepicker_android.filepicker;
 
 import android.os.Environment;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -59,6 +61,22 @@ public class DirectoryExplorer {
             return null;
         }
         return visitedPaths.get(visitedPaths.size() - 1);
+    }
+
+    public void unlistPaths(String path) {
+        Log.i("S", visitedPaths.toString());
+        Iterator<String> it = visitedPaths.iterator();
+        boolean clear = false;
+        while (it.hasNext()) {
+            String p = it.next();
+            if (path.equals(p)){
+                clear = true;
+            }
+            if (clear) {
+                it.remove();
+            }
+        }
+        Log.i("S", visitedPaths.toString());
     }
 
     private void getMimeTypesForFiles(List<FilepickerFile> files) {
