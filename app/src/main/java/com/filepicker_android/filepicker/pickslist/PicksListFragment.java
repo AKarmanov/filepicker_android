@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.Filepicker;
-import com.filepicker_android.filepicker.FilepickerContext;
-import com.filepicker_android.filepicker.FilepickerFile;
+import com.filepicker_android.filepicker.contextual.FilepickerContext;
+import com.filepicker_android.filepicker.dirutils.FilepickerFile;
 import com.filepicker_android.filepicker.R;
 
 import java.util.ArrayList;
@@ -98,6 +98,7 @@ public class PicksListFragment extends ListFragment {
                 holder.fileSize.setVisibility(TextView.VISIBLE);
             }
             holder.icon.setTypeface(((FilepickerContext)appContext).getTypeFaces().get("fontAwesome"));
+            holder.button.setTypeface(((FilepickerContext)appContext).getTypeFaces().get("fontAwesome"));
             return itemView;
         }
 

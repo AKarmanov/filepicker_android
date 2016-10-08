@@ -1,5 +1,7 @@
 package com.filepicker_android.filepicker;
 
+import com.filepicker_android.filepicker.dirutils.FilepickerFile;
+
 import java.util.List;
 
 /**

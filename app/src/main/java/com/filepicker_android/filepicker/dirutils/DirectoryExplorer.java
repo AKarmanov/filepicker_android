@@ -1,4 +1,4 @@
-package com.filepicker_android.filepicker;
+package com.filepicker_android.filepicker.dirutils;
 
 import android.os.Environment;
 import android.util.Log;
@@ -8,7 +8,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Allows to explore directories on the device

@@ -1,4 +1,4 @@
-package com.filepicker_android.filepicker;
+package com.filepicker_android.filepicker.contextual;
 
 import android.content.Context;
 import android.graphics.Typeface;

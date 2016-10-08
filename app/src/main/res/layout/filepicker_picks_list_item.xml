@@ -69,7 +69,7 @@
             android:layout_weight="0.1"
             android:layout_height="match_parent">
             <Button
-                android:text="@string/icon_trash"
+                android:text="@string/icon_minus"
                 android:id="@+id/removePick"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

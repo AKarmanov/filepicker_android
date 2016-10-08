@@ -2,7 +2,6 @@ package com.filepicker_android.filepicker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +9,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.filepicker_android.filepicker.contextual.FilepickerCollection;
+import com.filepicker_android.filepicker.contextual.FilepickerContext;
+import com.filepicker_android.filepicker.dirutils.FilepickerFile;
+import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 import com.filepicker_android.filepicker.pickslist.PicksListFragment;
 
 import java.util.ArrayList;
@@ -72,6 +75,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
     @Override
     public void addRemoveItem(List<FilepickerFile> files, boolean add, int position) {
+        Log.d("AddRemoveInfo: ", Boolean.toString(add) +", "+ Integer.toString(position) +", "+ Integer.toString(files.size()));
         if (add) {
             FilepickerCollection fc = ((FilepickerContext)appContext).getCollection();
             fc.addFile(files.get(position));
@@ -89,7 +93,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         switch(switchCase) {
             case LIST_FRAGMENT :
                 ft = getSupportFragmentManager().beginTransaction();
-                ft.add(R.id.fragmentContainer, new FilePickerListFragment());
+                ft.add(R.id.fragmentContainer, new FilePickerFragment());
                 ft.addToBackStack("list-fragment");
                 ft.commit();
                 break;

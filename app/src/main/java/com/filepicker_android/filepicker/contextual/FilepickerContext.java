@@ -1,8 +1,11 @@
-package com.filepicker_android.filepicker;
+package com.filepicker_android.filepicker.contextual;
 
 import android.app.Application;
 import android.graphics.Typeface;
 
+import com.filepicker_android.filepicker.dirutils.FilepickerFile;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,5 +32,9 @@ public class FilepickerContext extends Application {
         super.onCreate();
         collection = new FilepickerCollection();
         typeFaces = new TypeFaces(getApplicationContext()).getTypefaces();
+    }
+
+    public boolean fileSelectable(FilepickerFile file) {
+        return true;
     }
 }

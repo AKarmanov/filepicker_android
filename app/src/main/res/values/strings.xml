@@ -6,4 +6,6 @@
     <string name="icon_image">&#xf03e;</string>
     <string name="icon_file">&#xf15b;</string>
     <string name="icon_trash">&#xf1f8;</string>
+    <string name="icon_plus">&#xf067;</string>
+    <string name="icon_minus">&#xf068;</string>
 </resources>
