@@ -14,10 +14,19 @@ import java.util.Map;
 
 public class FilepickerContext extends Application {
 
+    private FilepickerConfig config;
     private FilepickerCollection collection;
     private Map<String, Typeface> typeFaces;
 
     public FilepickerContext() {}
+
+    public FilepickerConfig getConfig() {
+        return config;
+    }
+
+    public void setConfig(FilepickerConfig config) {
+        this.config = config;
+    }
 
     public FilepickerCollection getCollection() {
         return collection;
@@ -32,6 +41,7 @@ public class FilepickerContext extends Application {
         super.onCreate();
         collection = new FilepickerCollection();
         typeFaces = new TypeFaces(getApplicationContext()).getTypefaces();
+        config = new FilepickerConfig();
     }
 
     public boolean fileSelectable(FilepickerFile file) {

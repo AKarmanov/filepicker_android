@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -62,8 +63,9 @@ public class FilePickerFragment extends Fragment {
             de.setVisitedPaths(savedInstanceState.getStringArrayList(SAVED_PATHS));
         }
         rlu = new RecyclerLayoutUtils();
-//        navigateToPath(de.getLastPath());
+        navigateToPath(de.getLastPath());
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -83,10 +85,23 @@ public class FilePickerFragment extends Fragment {
                 layoutManager,
                 RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER
         );
+        setupRecyclerViewAnimator();
         navigateToPath(de.getLastPath());
         Log.i("****", "View created");
         setHasOptionsMenu(true);
         return v;
+    }
+
+    private void setupRecyclerViewAnimator() {
+        recycler.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    public void navigateToPath(String path) {
+        new GetFilesTask().execute(path);
+    }
+
+    public FilePickerFragment getObject() {
+        return this;
     }
 
     private void buildBreadCrumbs() {
@@ -120,10 +135,6 @@ public class FilePickerFragment extends Fragment {
         }
     }
 
-    public void navigateToPath(String path) {
-        new GetFilesTask().execute(path);
-    }
-
     private class GetFilesTask extends AsyncTask<String, Integer, List<FilepickerFile>> {
 
         @Override
@@ -136,7 +147,7 @@ public class FilePickerFragment extends Fragment {
         protected void onPostExecute(List<FilepickerFile> filepickerFiles) {
             if (files == null) {
                 files = filepickerFiles;
-                adapter = new FilePickerAdapter(files);
+                adapter = new FilePickerAdapter(getObject());
                 recycler.setAdapter(adapter);
             }
             else {
@@ -146,5 +157,21 @@ public class FilePickerFragment extends Fragment {
             }
             buildBreadCrumbs();
         }
+    }
+
+    public List<FilepickerFile> getFiles() {
+        return files;
+    }
+
+    public FilePickerAdapter getAdapter() {
+        return adapter;
+    }
+
+    public Context getAppContext() {
+        return appContext;
+    }
+
+    public Filepicker getFilepicker() {
+        return filepicker;
     }
 }

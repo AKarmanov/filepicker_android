@@ -1,6 +1,5 @@
 package com.filepicker_android.filepicker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.filepicker_android.filepicker.contextual.FilepickerCollection;
+import com.filepicker_android.filepicker.contextual.FilepickerConfig;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.dirutils.FilepickerFile;
 import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
@@ -21,24 +22,23 @@ import java.util.Locale;
 
 public class Filepicker extends AppCompatActivity implements FragmentToActivityInterface {
 
-    public static final String EXTRA_SUPPORTED_TYPES = "supportedTypes";
-    public static final String EXTRA_MAX_FILES = "maxFiles";
-    public static final String EXTRA_VIEW_MODE = "viewMode"; //List or grid
-    public static final String EXTRA_INITIAL_PATH = "initialPath";
+    public static final int PICK_FRAGMENT = 0;
+    public static final int PICKS_FRAGMENT = 1;
 
-    public static final int LIST_FRAGMENT = 0;
-    public static final int PICKS_LIST_FRAGMENT = 1;
-
-    private Context appContext;
+    private FilepickerContext appContext;
     private Menu menu;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        appContext = getApplicationContext();
+        appContext = (FilepickerContext) getApplicationContext();
+        FilepickerConfig config = getIntent().getParcelableExtra(FilepickerConfig.EXTRA_CONFIG);
+        if (config != null) {
+            appContext.setConfig(config);
+        }
         setContentView(R.layout.activity_filepicker);
-        transitionFragment(LIST_FRAGMENT);
+        transitionFragment(PICK_FRAGMENT);
     }
 
 
@@ -59,6 +59,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
             menu.getItem(i).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         this.menu = menu;
+        menu.getItem(0).setTitle(String.format(Locale.ENGLISH, "%d Pick(s)", 0));
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -68,36 +69,45 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
             goBackToCallingActivity();
         }
         else if (item.getItemId() == R.id.picksCount) {
-            transitionFragment(PICKS_LIST_FRAGMENT);
+            transitionFragment(PICKS_FRAGMENT);
         }
         return true;
     }
 
     @Override
-    public void addRemoveItem(List<FilepickerFile> files, boolean add, int position) {
+    public boolean addRemoveItem(List<FilepickerFile> files, boolean add, int position) {
         Log.d("AddRemoveInfo: ", Boolean.toString(add) +", "+ Integer.toString(position) +", "+ Integer.toString(files.size()));
         if (add) {
-            FilepickerCollection fc = ((FilepickerContext)appContext).getCollection();
-            fc.addFile(files.get(position));
-            menu.getItem(0).setTitle(String.format(Locale.ENGLISH, "%d Pick(s)", fc.getCollectionSize()));
+            FilepickerCollection fc = appContext.getCollection();
+            if (fc.getCollectionSize() < appContext.getConfig().getMaxFiles()) {
+                fc.addFile(files.get(position));
+                files.remove(position);
+                menu.getItem(0).setTitle(String.format(Locale.ENGLISH, "%d Pick(s)", fc.getCollectionSize()));
+                return true;
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "You have picked maximum number of files", Toast.LENGTH_LONG).show();
+                return false;
+            }
         }
         else {
-            FilepickerCollection fc = ((FilepickerContext)appContext).getCollection();
+            FilepickerCollection fc = appContext.getCollection();
             fc.removeFile(files.get(position));
             menu.getItem(0).setTitle(String.format(Locale.ENGLISH, "%d Pick(s)", fc.getCollectionSize()));
+            return true;
         }
     }
 
     public void transitionFragment(int switchCase) {
         FragmentTransaction ft;
         switch(switchCase) {
-            case LIST_FRAGMENT :
+            case PICK_FRAGMENT:
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.add(R.id.fragmentContainer, new FilePickerFragment());
                 ft.addToBackStack("list-fragment");
                 ft.commit();
                 break;
-            case PICKS_LIST_FRAGMENT :
+            case PICKS_FRAGMENT:
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.fragmentContainer, new PicksListFragment());
                 ft.addToBackStack(null);
@@ -108,7 +118,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
     private void goBackToCallingActivity() {
         Log.i("Notifying: ", "DONE");
-        ArrayList<FilepickerFile> list = ((FilepickerContext)getApplicationContext())
+        ArrayList<FilepickerFile> list = appContext
                 .getCollection()
                 .copyPicks();
         Intent backToActivity = new Intent();
