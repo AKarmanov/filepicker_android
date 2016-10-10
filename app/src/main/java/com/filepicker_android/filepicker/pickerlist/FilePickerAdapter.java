@@ -13,7 +13,12 @@ import com.filepicker_android.filepicker.Filepicker;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
-import com.filepicker_android.filepicker.pickerlist.viewholder.Item;
+import com.filepicker_android.filepicker.contextual.FilepickerFilter;
+import com.filepicker_android.filepicker.pickerlist.viewholder.ItemBase;
+import com.filepicker_android.filepicker.pickerlist.viewholder.ItemGridDetail;
+import com.filepicker_android.filepicker.pickerlist.viewholder.ItemGridSimple;
+import com.filepicker_android.filepicker.pickerlist.viewholder.ItemListDetail;
+import com.filepicker_android.filepicker.pickerlist.viewholder.ItemListSimple;
 
 import java.util.List;
 
@@ -23,7 +28,7 @@ import java.util.List;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class FilePickerAdapter extends RecyclerView.Adapter<Item>  {
+public class FilePickerAdapter extends RecyclerView.Adapter<ItemBase>  {
 
     private List<FilepickerFile> list;
     private FilepickerContext appContext;
@@ -38,10 +43,46 @@ public class FilePickerAdapter extends RecyclerView.Adapter<Item>  {
     }
 
     @Override
-    public Item onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemBase onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.i("FPA", "Created view holder");
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.filepicker_item, parent, false);
-        Item item = new Item(v);
+        FilepickerFilter.FilterSetting setting = FilepickerFilter.getLayoutOption();
+        View v;
+        ItemBase item;
+        switch(setting.getOption()) {
+            case FilepickerFilter.GRID :
+                if (setting.getType().equals(FilepickerFilter.LAYOUT_TYPE_DETAILED)) {
+                    v = LayoutInflater.from(parent.getContext())
+                            .inflate(ItemGridDetail.layoutId, parent, false);
+                    item = new ItemGridDetail(v);
+                    Log.i("Case", "Grid detail");
+                }
+                else {
+                    v = LayoutInflater.from(parent.getContext())
+                            .inflate(ItemGridSimple.layoutId, parent, false);
+                    item = new ItemGridSimple(v);
+                    Log.i("Case", "Grid simple");
+                }
+                break;
+            case FilepickerFilter.LIST :
+                if (setting.getType().equals(FilepickerFilter.LAYOUT_TYPE_DETAILED)) {
+                    v = LayoutInflater.from(parent.getContext())
+                            .inflate(ItemListDetail.layoutId, parent, false);
+                    item = new ItemListDetail(v);
+                    Log.i("Case", "List detail");
+                }
+                else {
+                    v = LayoutInflater.from(parent.getContext())
+                            .inflate(ItemListSimple.layoutId, parent, false);
+                    item = new ItemListSimple(v);
+                    Log.i("Case", "List simple");
+                }
+                break;
+            default :
+                v = LayoutInflater.from(parent.getContext())
+                        .inflate(ItemListDetail.layoutId, parent, false);
+                item = new ItemListDetail(v);
+                Log.i("Case", "Default");
+        }
         item.setPickerFragment(pickerFragment);
         return item;
     }
@@ -49,33 +90,11 @@ public class FilePickerAdapter extends RecyclerView.Adapter<Item>  {
     
 
     @Override
-    public void onBindViewHolder(Item holder, int position) {
+    public void onBindViewHolder(ItemBase holder, int position) {
         Log.i("FPA", "On bind view holder");
         //TODO switch view here depending on current mode
         FilepickerFile item = list.get(position);
-        holder.getFileName().setText(item.getName());
-        holder.getFileSize().setText(item.getSizeString());
-        holder.getLastModified().setText(item.getLastModifiedAsString());
-        if (item.isDir()) {
-            holder.getChildCount().setVisibility(TextView.VISIBLE);
-            holder.getFileSize().setVisibility(TextView.INVISIBLE);
-            holder.getChildCount().setText(String.format("%s file(s)", item.getChildCount()));
-        }
-        else {
-            holder.getIcon().setText(R.string.icon_file);
-            holder.getChildCount().setVisibility(TextView.INVISIBLE);
-            holder.getFileSize().setVisibility(TextView.VISIBLE);
-        }
-
-        if (!appContext.fileSelectable(item)) {
-            holder.getPickButton().setVisibility(Button.INVISIBLE);
-        }
-        else {
-            holder.getPickButton().setVisibility(Button.VISIBLE);
-        }
-
-        holder.getIcon().setTypeface(appContext.getTypeFaces().get("fontAwesome"));
-        holder.getPickButton().setTypeface(appContext.getTypeFaces().get("fontAwesome"));
+        holder.setUpView(item, position);
     }
 
     @Override

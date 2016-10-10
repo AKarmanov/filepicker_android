@@ -79,13 +79,8 @@ public class FilePickerFragment extends Fragment implements FragmentLayoutInterf
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.filepicker_container, container, false);
         recycler = (RecyclerView) v.findViewById(R.id.recycler);
-        rlu.setRecyclerLayoutManager(
-                getActivity(),
-                recycler,
-                layoutManager,
-                RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER
-        );
-        setupRecyclerViewAnimator();
+        //configureLayout();
+//        setupRecyclerViewAnimator();
         navigateToPath(de.getLastPath());
         Log.i("****", "View created");
         setHasOptionsMenu(true);
@@ -189,5 +184,9 @@ public class FilePickerFragment extends Fragment implements FragmentLayoutInterf
                 layoutManager,
                 type
         );
+        adapter.onDetachedFromRecyclerView(recycler);
+        adapter = new FilePickerAdapter(getObject());
+        recycler.setAdapter(adapter);
+        navigateToPath(de.getLastPath());
     }
 }

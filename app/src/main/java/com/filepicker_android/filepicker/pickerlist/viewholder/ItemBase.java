@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.R;
+import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.pickerlist.FilePickerAdapter;
 import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 
@@ -16,18 +17,18 @@ import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class Item extends RecyclerView.ViewHolder {
+public class ItemBase extends RecyclerView.ViewHolder {
 
-    private final TextView fileName;
-    private final TextView fileSize;
-    private final TextView icon;
-    private final TextView lastModified;
-    private final TextView childCount;
-    private final Button pickButton;
+    protected final TextView fileName;
+    protected final TextView fileSize;
+    protected final TextView icon;
+    protected final TextView lastModified;
+    protected final TextView childCount;
+    protected final Button pickButton;
 
-    private FilePickerFragment pickerFragment;
+    protected FilePickerFragment pickerFragment;
 
-    public Item(View itemView) {
+    public ItemBase(View itemView) {
         super(itemView);
         this.fileName = (TextView)itemView.findViewById(R.id.li_fileName);
         this.fileSize = (TextView)itemView.findViewById(R.id.li_fileSize);
@@ -66,6 +67,8 @@ public class Item extends RecyclerView.ViewHolder {
     public void setPickerFragment(FilePickerFragment pickerFragment) {
         this.pickerFragment = pickerFragment;
     }
+
+    public void setUpView(FilepickerFile item, int position) {}
 
     private class PickButtonListener implements Button.OnClickListener {
 

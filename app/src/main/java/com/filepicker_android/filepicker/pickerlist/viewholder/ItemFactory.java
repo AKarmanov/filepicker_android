@@ -8,7 +8,7 @@ package com.filepicker_android.filepicker.pickerlist.viewholder;
 
 public class ItemFactory {
 
-    public static Item getItem() {
+    public static ItemBase getItem() {
         return null;
     }
 }
