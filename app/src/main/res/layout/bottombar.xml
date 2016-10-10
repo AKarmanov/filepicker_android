@@ -13,6 +13,7 @@
     android:weightSum="3">
 
     <Button
+        android:id="@+id/donePickingButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -21,6 +22,7 @@
         android:text="PICK"/>
 
     <Button
+        android:id="@+id/cancelPickingButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -29,6 +31,7 @@
         android:text="CANCEL"/>
 
     <Button
+        android:id="@+id/configureFilterButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

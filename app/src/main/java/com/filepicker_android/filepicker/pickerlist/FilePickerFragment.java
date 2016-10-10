@@ -17,11 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.Filepicker;
+import com.filepicker_android.filepicker.FragmentLayoutInterface;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.RecyclerLayoutUtils;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.DirectoryExplorer;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
+import com.filepicker_android.filepicker.contextual.FilepickerFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ import java.util.List;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class FilePickerFragment extends Fragment {
+public class FilePickerFragment extends Fragment implements FragmentLayoutInterface {
 
     private static final String SAVED_PATHS = "paths";
     private DirectoryExplorer de;
@@ -168,5 +170,24 @@ public class FilePickerFragment extends Fragment {
 
     public Filepicker getFilepicker() {
         return filepicker;
+    }
+
+    public void configureLayout() {
+        RecyclerLayoutUtils.LayoutManagerType type = RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        switch (FilepickerFilter.getLayoutOption().getOption()) {
+            case FilepickerFilter.GRID :
+                type = RecyclerLayoutUtils.LayoutManagerType.GRID_LAYOUT_MANAGER;
+                break;
+            case FilepickerFilter.LIST :
+                type = RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+                break;
+
+        }
+        rlu.setRecyclerLayoutManager(
+                getActivity(),
+                recycler,
+                layoutManager,
+                type
+        );
     }
 }

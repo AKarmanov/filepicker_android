@@ -1,4 +1,4 @@
-package com.filepicker_android.filepicker.pickerlist;
+package com.filepicker_android.filepicker.pickerlist.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.R;
+import com.filepicker_android.filepicker.pickerlist.FilePickerAdapter;
+import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 
 /**
  * List item

@@ -15,6 +15,7 @@ import com.filepicker_android.filepicker.contextual.FilepickerCollection;
 import com.filepicker_android.filepicker.contextual.FilepickerConfig;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
+import com.filepicker_android.filepicker.contextual.FilepickerFilter;
 import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 import com.filepicker_android.filepicker.pickslist.PicksListFragment;
 
@@ -52,7 +53,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
         //Filepicker at root path only way back is to calling activity
         if (getSupportFragmentManager().getBackStackEntryCount() == 1 && atRootPath) {
-            goBackToCallingActivity();
+            goBackToCallingActivity(true);
         } //Filepicker has navigated away from root so visit back those paths first
         else if (getSupportFragmentManager().getBackStackEntryCount() == 1 && !atRootPath) {
             String path = de.getBackPath();
@@ -78,10 +79,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.donePickingButton) {
-            goBackToCallingActivity();
-        }
-        else if (item.getItemId() == R.id.picksCount) {
+        if (item.getItemId() == R.id.picksCount) {
             transitionFragment(PICKS_FRAGMENT);
         }
         return true;
@@ -129,17 +127,49 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         }
     }
 
+    @Override
+    public void donePicking() {
+        goBackToCallingActivity(true);
+    }
+
+    @Override
+    public void cancelPicking() {
+        goBackToCallingActivity(false);
+    }
+
+    @Override
+    public void notifyFilterChange(FilepickerFilter.FilterSetting setting, String filterType) {
+        Log.i("Notify:", "Notify of filter changes");
+        switch (filterType) {
+            case FilepickerFilter.FILTER_LAYOUT :
+                FilepickerFilter.setLayoutOption(setting.getOption(), setting.getType());
+                break;
+            case FilepickerFilter.FILTER_SORT :
+                FilepickerFilter.setSortOption(setting.getOption(), setting.getType());
+                break;
+        }
+        ((FragmentLayoutInterface) getSupportFragmentManager()
+                .findFragmentById(R.id.filesFragment))
+                .configureLayout();
+    }
+
     private void addActionBar() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.actionFragment, new ActionTabFragment());
         ft.commit();
     }
 
-    private void goBackToCallingActivity() {
+    private void goBackToCallingActivity(boolean sendPicks) {
         Log.i("Notifying: ", "DONE");
-        ArrayList<FilepickerFile> list = appContext
-                .getCollection()
-                .copyPicks();
+        ArrayList<FilepickerFile> list;
+        if (sendPicks) {
+            list = appContext
+                    .getCollection()
+                    .copyPicks();
+        }
+        else {
+            list = new ArrayList<>();
+        }
         Intent backToActivity = new Intent();
         backToActivity.putParcelableArrayListExtra("data", list);
         setResult(1, backToActivity);

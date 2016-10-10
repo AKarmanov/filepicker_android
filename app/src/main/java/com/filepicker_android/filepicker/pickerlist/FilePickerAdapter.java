@@ -2,6 +2,7 @@ package com.filepicker_android.filepicker.pickerlist;
 
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.filepicker_android.filepicker.Filepicker;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
+import com.filepicker_android.filepicker.pickerlist.viewholder.Item;
 
 import java.util.List;
 
@@ -37,6 +39,7 @@ public class FilePickerAdapter extends RecyclerView.Adapter<Item>  {
 
     @Override
     public Item onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.i("FPA", "Created view holder");
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.filepicker_item, parent, false);
         Item item = new Item(v);
         item.setPickerFragment(pickerFragment);
@@ -47,6 +50,7 @@ public class FilePickerAdapter extends RecyclerView.Adapter<Item>  {
 
     @Override
     public void onBindViewHolder(Item holder, int position) {
+        Log.i("FPA", "On bind view holder");
         //TODO switch view here depending on current mode
         FilepickerFile item = list.get(position);
         holder.getFileName().setText(item.getName());
