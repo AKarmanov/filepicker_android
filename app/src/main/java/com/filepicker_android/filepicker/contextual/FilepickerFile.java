@@ -1,4 +1,4 @@
-package com.filepicker_android.filepicker.dirutils;
+package com.filepicker_android.filepicker.contextual;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,8 +19,9 @@ import android.widget.TextView;
 import com.filepicker_android.filepicker.Filepicker;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.RecyclerLayoutUtils;
-import com.filepicker_android.filepicker.dirutils.DirectoryExplorer;
-import com.filepicker_android.filepicker.dirutils.FilepickerFile;
+import com.filepicker_android.filepicker.contextual.FilepickerContext;
+import com.filepicker_android.filepicker.contextual.DirectoryExplorer;
+import com.filepicker_android.filepicker.contextual.FilepickerFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,13 +56,12 @@ public class FilePickerFragment extends Fragment {
         Log.i("****", "Created");
         filepicker = (Filepicker) getActivity();
         appContext = getActivity().getApplicationContext();
-        de = new DirectoryExplorer();
+        de = ((FilepickerContext)appContext).getDirectoryExplorer();
         //TODO save restore layout config
         if (savedInstanceState != null) {
             de.setVisitedPaths(savedInstanceState.getStringArrayList(SAVED_PATHS));
         }
         rlu = new RecyclerLayoutUtils();
-        navigateToPath(de.getLastPath());
     }
 
 
@@ -92,6 +90,13 @@ public class FilePickerFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("****", "Resumed");
+        recycler.setAdapter(adapter);
+    }
+
     private void setupRecyclerViewAnimator() {
         recycler.setItemAnimator(new DefaultItemAnimator());
     }
@@ -110,28 +115,18 @@ public class FilePickerFragment extends Fragment {
         List<String> paths = de.getVisitedPaths();
         for (int i = 0; i < paths.size(); i++) {
             String path = paths.get(i);
-            if (path != null) {
-                TextView tv = new TextView(appContext);
-                tv.setText(" / ");
-                tv.setTextColor(Color.DKGRAY);
-                v.addView(tv);
+            TextView tv = new TextView(appContext);
+            tv.setText(" / ");
+            tv.setTextColor(Color.DKGRAY);
+            v.addView(tv);
 
-                Button b = new Button(appContext);
-                int index = path.lastIndexOf("/") == 0 ? 0 : path.lastIndexOf("/") + 1;
-                b.setText(path.substring(index));
-                b.setTextColor(Color.DKGRAY);
-                b.setBackgroundResource(R.drawable.breadcrumb_button);
-                b.setOnClickListener(new BreadCrumbListener(path, de, this));
-                v.addView(b);
-            }
-            else {
-                Button b = new Button(appContext);
-                b.setText("Home");
-                b.setTextColor(Color.DKGRAY);
-                b.setBackgroundResource(R.drawable.breadcrumb_button);
-                b.setOnClickListener(new BreadCrumbListener(path, de, this));
-                v.addView(b);
-            }
+            Button b = new Button(appContext);
+            int index = path.lastIndexOf("/") == 0 ? 0 : path.lastIndexOf("/") + 1;
+            b.setText(path.substring(index));
+            b.setTextColor(Color.DKGRAY);
+            b.setBackgroundResource(R.drawable.breadcrumb_button);
+            b.setOnClickListener(new BreadCrumbListener(path, de, this));
+            v.addView(b);
         }
     }
 

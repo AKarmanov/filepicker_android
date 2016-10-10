@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.filepicker_android.filepicker.Filepicker;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
-import com.filepicker_android.filepicker.dirutils.FilepickerFile;
+import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.R;
 
 import java.util.ArrayList;

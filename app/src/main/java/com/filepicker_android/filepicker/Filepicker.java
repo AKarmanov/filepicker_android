@@ -9,10 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.filepicker_android.filepicker.actiontab.ActionTabFragment;
+import com.filepicker_android.filepicker.contextual.DirectoryExplorer;
 import com.filepicker_android.filepicker.contextual.FilepickerCollection;
 import com.filepicker_android.filepicker.contextual.FilepickerConfig;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
-import com.filepicker_android.filepicker.dirutils.FilepickerFile;
+import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 import com.filepicker_android.filepicker.pickslist.PicksListFragment;
 
@@ -39,15 +41,26 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         }
         setContentView(R.layout.activity_filepicker);
         transitionFragment(PICK_FRAGMENT);
+        addActionBar();
     }
 
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+        DirectoryExplorer de = appContext.getDirectoryExplorer();
+        boolean atRootPath = de.getVisitedPaths().size() == 1;
+
+        //Filepicker at root path only way back is to calling activity
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1 && atRootPath) {
             goBackToCallingActivity();
+        } //Filepicker has navigated away from root so visit back those paths first
+        else if (getSupportFragmentManager().getBackStackEntryCount() == 1 && !atRootPath) {
+            String path = de.getBackPath();
+            de.unlistPaths(path);
+            ((FilePickerFragment)getSupportFragmentManager().findFragmentById(R.id.filesFragment))
+                    .navigateToPath(path);
         }
-        else {
+        else { //Filepicker shows picks fragment for back to pick fragment
             getSupportFragmentManager().popBackStack();
         }
     }
@@ -103,17 +116,23 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         switch(switchCase) {
             case PICK_FRAGMENT:
                 ft = getSupportFragmentManager().beginTransaction();
-                ft.add(R.id.fragmentContainer, new FilePickerFragment());
-                ft.addToBackStack("list-fragment");
+                ft.add(R.id.filesFragment, new FilePickerFragment());
+                ft.addToBackStack("picker-fragment");
                 ft.commit();
                 break;
             case PICKS_FRAGMENT:
                 ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.fragmentContainer, new PicksListFragment());
-                ft.addToBackStack(null);
+                ft.replace(R.id.filesFragment, new PicksListFragment());
+                ft.addToBackStack("picks-fragment");
                 ft.commit();
                 break;
         }
+    }
+
+    private void addActionBar() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.actionFragment, new ActionTabFragment());
+        ft.commit();
     }
 
     private void goBackToCallingActivity() {

@@ -22,7 +22,7 @@ public class RecyclerLayoutUtils {
         LINEAR_LAYOUT_MANAGER
     }
 
-    public LayoutManagerType currentLayoutManagerType;
+    public static LayoutManagerType currentLayoutManagerType;
 
     public void setRecyclerLayoutManager(Context context,
                                              RecyclerView recycler,
@@ -58,6 +58,6 @@ public class RecyclerLayoutUtils {
     }
 
     public void setCurrentLayoutManagerType(LayoutManagerType currentLayoutManagerType) {
-        this.currentLayoutManagerType = currentLayoutManagerType;
+        RecyclerLayoutUtils.currentLayoutManagerType = currentLayoutManagerType;
     }
 }

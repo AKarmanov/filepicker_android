@@ -1,4 +1,4 @@
-package com.filepicker_android.filepicker.dirutils;
+package com.filepicker_android.filepicker.contextual;
 
 import android.os.Environment;
 import android.util.Log;
@@ -22,11 +22,13 @@ public class DirectoryExplorer {
 
     public DirectoryExplorer() {
         visitedPaths = new ArrayList<>();
+        visitedPaths.add(getInitialPath());
     }
 
     public List<FilepickerFile> getFiles(String path) {
-        visitedPaths.add(path);
-        path = path == null ? getInitialPath() : path;
+        if (!visitedPaths.contains(path)) {
+            visitedPaths.add(path);
+        }
         File[] files = getDirectoryContents(path);
         List<FilepickerFile> list = new ArrayList<>();
         for (int i = 0; files!= null && i < files.length; i++) {
@@ -62,13 +64,20 @@ public class DirectoryExplorer {
         return visitedPaths.get(visitedPaths.size() - 1);
     }
 
+    public String getBackPath() {
+        if (visitedPaths.size() == 1) {
+            return visitedPaths.get(visitedPaths.size() - 1);
+        }
+        return visitedPaths.get(visitedPaths.size() - 2);
+    }
+
     public void unlistPaths(String path) {
         Log.i("S", visitedPaths.toString());
         Iterator<String> it = visitedPaths.iterator();
         boolean clear = false;
         while (it.hasNext()) {
             String p = it.next();
-            if (path.equals(p)){
+            if (p.equals(path)){
                 clear = true;
             }
             if (clear) {

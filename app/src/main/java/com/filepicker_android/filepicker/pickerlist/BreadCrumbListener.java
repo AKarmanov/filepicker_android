@@ -4,7 +4,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 
-import com.filepicker_android.filepicker.dirutils.DirectoryExplorer;
+import com.filepicker_android.filepicker.contextual.DirectoryExplorer;
 
 public class BreadCrumbListener implements Button.OnClickListener {
 

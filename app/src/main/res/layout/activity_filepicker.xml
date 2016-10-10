@@ -11,7 +11,12 @@
     tools:context="com.filepicker_android.filepicker.Filepicker">
 
     <FrameLayout
-        android:id="@+id/fragmentContainer"
+        android:id="@+id/filesFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:id="@+id/actionFragment"
+        android:layout_alignBottom="@id/filesFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

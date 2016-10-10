@@ -5,8 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.filepicker_android.filepicker.contextual.FilepickerConfig;
-import com.filepicker_android.filepicker.dirutils.FilepickerFile;
+import com.filepicker_android.filepicker.contextual.FilepickerFile;
 
 import java.util.List;
 

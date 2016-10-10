@@ -3,9 +3,6 @@ package com.filepicker_android.filepicker.contextual;
 import android.app.Application;
 import android.graphics.Typeface;
 
-import com.filepicker_android.filepicker.dirutils.FilepickerFile;
-
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +14,7 @@ public class FilepickerContext extends Application {
     private FilepickerConfig config;
     private FilepickerCollection collection;
     private Map<String, Typeface> typeFaces;
+    private DirectoryExplorer directoryExplorer;
 
     public FilepickerContext() {}
 
@@ -36,12 +34,17 @@ public class FilepickerContext extends Application {
         return typeFaces;
     }
 
+    public DirectoryExplorer getDirectoryExplorer() {
+        return directoryExplorer;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         collection = new FilepickerCollection();
         typeFaces = new TypeFaces(getApplicationContext()).getTypefaces();
         config = new FilepickerConfig();
+        directoryExplorer = new DirectoryExplorer();
     }
 
     public boolean fileSelectable(FilepickerFile file) {

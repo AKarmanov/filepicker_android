@@ -1,16 +1,12 @@
 package com.filepicker_android.filepicker.pickerlist;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.R;
-import com.filepicker_android.filepicker.dirutils.FilepickerFile;
-
-import java.util.List;
 
 /**
  * List item
@@ -37,7 +33,8 @@ public class Item extends RecyclerView.ViewHolder {
         this.icon = (TextView)itemView.findViewById(R.id.li_icon);
         this.childCount = (TextView)itemView.findViewById(R.id.li_childCount);
         this.pickButton = (Button) itemView.findViewById(R.id.li_pickButton);
-        this.pickButton.setOnClickListener(new PickButtonListener(getAdapterPosition()));
+        this.pickButton.setOnClickListener(new PickButtonListener());
+        itemView.setOnClickListener(new ItemClickListener());
     }
 
     public TextView getFileName() {
@@ -69,27 +66,26 @@ public class Item extends RecyclerView.ViewHolder {
     }
 
     private class PickButtonListener implements Button.OnClickListener {
-        private int position;
-
-        public PickButtonListener(int position) {
-            this.position = position;
-        }
 
         @Override
         public void onClick(View view) {
-            if (pickerFragment.getFilepicker().addRemoveItem(pickerFragment.getFiles(), true, getAdapterPosition())) {
-                pickerFragment.getAdapter().notifyItemRemoved(getAdapterPosition());
-                pickerFragment.getAdapter().notifyItemRangeChanged(getAdapterPosition(), pickerFragment.getAdapter().getItemCount());
+            int position = getAdapterPosition();
+
+            if (pickerFragment.getFilepicker().addRemoveItem(pickerFragment.getFiles(), true, position)) {
+                FilePickerAdapter adapter = pickerFragment.getAdapter();
+                adapter.notifyItemRemoved(position);
+                adapter.notifyItemRangeChanged(position, adapter.getItemCount());
             }
         }
     }
 
-    private class ClickListener implements View.OnClickListener {
+    private class ItemClickListener implements View.OnClickListener {
         private AlphaAnimation alphaAnimation = new AlphaAnimation(1f, 0.2f);
         @Override
         public void onClick(View view) {
             view.startAnimation(alphaAnimation);
-            Log.i("view: ", "view clicked");
+            String path = pickerFragment.getFiles().get(getAdapterPosition()).getPath();
+            pickerFragment.navigateToPath(path);
         }
     }
 }

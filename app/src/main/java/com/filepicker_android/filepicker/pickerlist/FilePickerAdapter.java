@@ -1,20 +1,17 @@
 package com.filepicker_android.filepicker.pickerlist;
 
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.Filepicker;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
-import com.filepicker_android.filepicker.dirutils.FilepickerFile;
+import com.filepicker_android.filepicker.contextual.FilepickerFile;
 
 import java.util.List;
 
@@ -50,6 +47,7 @@ public class FilePickerAdapter extends RecyclerView.Adapter<Item>  {
 
     @Override
     public void onBindViewHolder(Item holder, int position) {
+        //TODO switch view here depending on current mode
         FilepickerFile item = list.get(position);
         holder.getFileName().setText(item.getName());
         holder.getFileSize().setText(item.getSizeString());
