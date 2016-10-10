@@ -79,9 +79,8 @@ public class FilePickerFragment extends Fragment implements FragmentLayoutInterf
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.filepicker_container, container, false);
         recycler = (RecyclerView) v.findViewById(R.id.recycler);
-        //configureLayout();
-//        setupRecyclerViewAnimator();
-        navigateToPath(de.getLastPath());
+        configureLayout();
+//        navigateToPath(de.getLastPath());
         Log.i("****", "View created");
         setHasOptionsMenu(true);
         return v;
@@ -92,10 +91,6 @@ public class FilePickerFragment extends Fragment implements FragmentLayoutInterf
         super.onResume();
         Log.i("****", "Resumed");
         recycler.setAdapter(adapter);
-    }
-
-    private void setupRecyclerViewAnimator() {
-        recycler.setItemAnimator(new DefaultItemAnimator());
     }
 
     public void navigateToPath(String path) {
@@ -184,9 +179,11 @@ public class FilePickerFragment extends Fragment implements FragmentLayoutInterf
                 layoutManager,
                 type
         );
-        adapter.onDetachedFromRecyclerView(recycler);
-        adapter = new FilePickerAdapter(getObject());
-        recycler.setAdapter(adapter);
+        if (adapter != null) {
+            adapter.onDetachedFromRecyclerView(recycler);
+            adapter = new FilePickerAdapter(getObject());
+            recycler.setAdapter(adapter);
+        }
         navigateToPath(de.getLastPath());
     }
 }
