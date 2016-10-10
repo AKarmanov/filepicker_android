@@ -143,12 +143,15 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         switch (filterType) {
             case FilepickerFilter.FILTER_LAYOUT :
                 FilepickerFilter.setLayoutOption(setting.getOption(), setting.getType());
-                ((FragmentLayoutInterface) getSupportFragmentManager()
+                ((FragmentFilterInterface) getSupportFragmentManager()
                         .findFragmentById(R.id.filesFragment))
                         .configureLayout();
                 break;
             case FilepickerFilter.FILTER_SORT :
                 FilepickerFilter.setSortOption(setting.getOption(), setting.getType());
+                ((FragmentFilterInterface) getSupportFragmentManager()
+                        .findFragmentById(R.id.filesFragment))
+                        .sortList();
                 break;
         }
     }

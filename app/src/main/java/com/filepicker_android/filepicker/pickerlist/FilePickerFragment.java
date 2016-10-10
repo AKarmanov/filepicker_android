@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.Filepicker;
-import com.filepicker_android.filepicker.FragmentLayoutInterface;
+import com.filepicker_android.filepicker.FragmentFilterInterface;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.RecyclerLayoutUtils;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
@@ -26,6 +25,7 @@ import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.contextual.FilepickerFilter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,7 +34,7 @@ import java.util.List;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class FilePickerFragment extends Fragment implements FragmentLayoutInterface {
+public class FilePickerFragment extends Fragment implements FragmentFilterInterface {
 
     private static final String SAVED_PATHS = "paths";
     private DirectoryExplorer de;
@@ -185,5 +185,22 @@ public class FilePickerFragment extends Fragment implements FragmentLayoutInterf
             recycler.setAdapter(adapter);
         }
         navigateToPath(de.getLastPath());
+    }
+
+    @Override
+    public void sortList() {
+        FilepickerFilter.FilterSetting setting = FilepickerFilter.getSortOption();
+        switch(setting.getOption()) {
+            case FilepickerFilter.SIZE :
+                if (setting.getType().equals(FilepickerFilter.SORT_TYPE_DESC)) {
+                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_DESC));
+                }
+                else {
+                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_ASC));
+                }
+
+        }
+//        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
+        adapter.notifyDataSetChanged();
     }
 }

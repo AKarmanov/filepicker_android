@@ -44,7 +44,7 @@ public class FilePickerAdapter extends RecyclerView.Adapter<ItemBase>  {
 
     @Override
     public ItemBase onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i("FPA", "Created view holder");
+//        Log.i("FPA", "Created view holder");
         FilepickerFilter.FilterSetting setting = FilepickerFilter.getLayoutOption();
         View v;
         ItemBase item;
@@ -91,7 +91,7 @@ public class FilePickerAdapter extends RecyclerView.Adapter<ItemBase>  {
 
     @Override
     public void onBindViewHolder(ItemBase holder, int position) {
-        Log.i("FPA", "On bind view holder");
+//        Log.i("FPA", "On bind view holder");
         //TODO switch view here depending on current mode
         FilepickerFile item = list.get(position);
         holder.setUpView(item, position);

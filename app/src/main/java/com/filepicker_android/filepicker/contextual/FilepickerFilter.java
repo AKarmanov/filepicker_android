@@ -1,6 +1,9 @@
 package com.filepicker_android.filepicker.contextual;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -149,6 +152,30 @@ public class FilepickerFilter {
 
         public void set() {
             set = true;
+        }
+    }
+
+    public static SizeSort sizeSortInstance(String sortType) {
+        return new SizeSort(sortType);
+    }
+
+    private static class SizeSort implements Comparator<FilepickerFile> {
+        private String type;
+
+        public SizeSort(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public int compare(FilepickerFile o1, FilepickerFile o2) {
+            switch (type) {
+                case FilepickerFilter.SORT_TYPE_ASC :
+                    return (int) (o1.getSize() - o2.getSize());
+                case FilepickerFilter.SORT_TYPE_DESC :
+                    return (int) (o2.getSize() - o1.getSize());
+                default:
+                    return (int) (o2.getSize() - o1.getSize());
+            }
         }
     }
 }
