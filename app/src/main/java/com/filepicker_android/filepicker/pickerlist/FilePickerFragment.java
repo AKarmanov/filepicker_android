@@ -141,6 +141,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
                 files.clear();
                 files.addAll(filepickerFiles);
                 adapter.notifyDataSetChanged();
+                System.out.println(files.size() +"!--!"+ adapter.getItemCount());
             }
             buildBreadCrumbs();
         }

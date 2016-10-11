@@ -1,6 +1,7 @@
 package com.filepicker_android.filepicker.pickerlist.viewholder;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -17,7 +18,7 @@ import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class ItemBase extends RecyclerView.ViewHolder {
+public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickListener {
 
     protected final TextView fileName;
     protected final TextView fileSize;
@@ -37,7 +38,7 @@ public class ItemBase extends RecyclerView.ViewHolder {
         this.childCount = (TextView)itemView.findViewById(R.id.li_childCount);
         this.pickButton = (Button) itemView.findViewById(R.id.li_pickButton);
         this.pickButton.setOnClickListener(new PickButtonListener());
-        itemView.setOnClickListener(new ItemClickListener());
+        itemView.setOnClickListener(this);
     }
 
     public TextView getFileName() {
@@ -68,7 +69,19 @@ public class ItemBase extends RecyclerView.ViewHolder {
         this.pickerFragment = pickerFragment;
     }
 
+    public void setUpListeners(int position) {
+        itemView.setOnClickListener(new ItemClickListener(position));
+    }
+
     public void setUpView(FilepickerFile item, int position) {}
+
+    @Override
+    public void onClick(View view) {
+        String path = pickerFragment.getFiles().get(getAdapterPosition()).getPath();
+        pickerFragment.navigateToPath(path);
+    }
+
+//    private final PublishSubject<String> onClickSubject = PublishSubject.create();
 
     private class PickButtonListener implements Button.OnClickListener {
 
@@ -86,9 +99,16 @@ public class ItemBase extends RecyclerView.ViewHolder {
 
     private class ItemClickListener implements View.OnClickListener {
         private AlphaAnimation alphaAnimation = new AlphaAnimation(1f, 0.2f);
+        private int position;
+
+        public ItemClickListener(int position) {
+            this.position = position;
+        }
+
         @Override
         public void onClick(View view) {
             view.startAnimation(alphaAnimation);
+            System.out.println(getAdapterPosition() +"----"+ position+"------"+ pickerFragment.getAdapter().getItemCount());
             String path = pickerFragment.getFiles().get(getAdapterPosition()).getPath();
             pickerFragment.navigateToPath(path);
         }
