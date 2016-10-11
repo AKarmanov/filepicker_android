@@ -1,4 +1,4 @@
-package com.filepicker_android.filepicker.pickerlist;
+package com.filepicker_android.filepicker.pickslist;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -6,14 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.filepicker_android.filepicker.Filepicker;
-import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.contextual.FilepickerFilter;
+import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 import com.filepicker_android.filepicker.pickerlist.viewholder.ItemBase;
 import com.filepicker_android.filepicker.pickerlist.viewholder.ItemGridDetail;
 import com.filepicker_android.filepicker.pickerlist.viewholder.ItemGridSimple;
@@ -28,18 +26,18 @@ import java.util.List;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class FilePickerAdapter extends RecyclerView.Adapter<ItemBase>  {
+public class FilePicksAdapter extends RecyclerView.Adapter<ItemBase>  {
 
     private List<FilepickerFile> list;
     private FilepickerContext appContext;
     private Filepicker filepicker;
-    private FilePickerFragment pickerFragment;
+    private FilePicksFragment picksFragment;
 
-    public FilePickerAdapter(FilePickerFragment pickerFragment) {
-        this.filepicker = pickerFragment.getFilepicker();
-        this.list = pickerFragment.getFiles();
-        this.appContext = (FilepickerContext) pickerFragment.getAppContext();
-        this.pickerFragment = pickerFragment;
+    public FilePicksAdapter(FilePicksFragment picksFragment) {
+        this.filepicker = picksFragment.getFilepicker();
+        this.list = picksFragment.getFiles();
+        this.appContext = (FilepickerContext) picksFragment.getAppContext();
+        this.picksFragment = picksFragment;
     }
 
     @Override
@@ -83,7 +81,7 @@ public class FilePickerAdapter extends RecyclerView.Adapter<ItemBase>  {
                 item = new ItemListDetail(v);
                 Log.i("Case", "Default");
         }
-        item.setPickerFragment(pickerFragment);
+//        item.setPickerFragment(picksFragment);
         return item;
     }
 

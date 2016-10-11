@@ -17,7 +17,7 @@
 
     <FrameLayout
         android:id="@+id/actionFragment"
-        android:layout_alignBottom="@id/filesFragment"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </RelativeLayout>

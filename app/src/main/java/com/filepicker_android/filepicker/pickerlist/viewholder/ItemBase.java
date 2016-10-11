@@ -69,10 +69,6 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
         this.pickerFragment = pickerFragment;
     }
 
-    public void setUpListeners(int position) {
-        itemView.setOnClickListener(new ItemClickListener(position));
-    }
-
     public void setUpView(FilepickerFile item, int position) {}
 
     @Override
@@ -80,8 +76,6 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
         String path = pickerFragment.getFiles().get(getAdapterPosition()).getPath();
         pickerFragment.navigateToPath(path);
     }
-
-//    private final PublishSubject<String> onClickSubject = PublishSubject.create();
 
     private class PickButtonListener implements Button.OnClickListener {
 
@@ -94,23 +88,6 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
                 adapter.notifyItemRemoved(position);
                 adapter.notifyItemRangeChanged(position, adapter.getItemCount());
             }
-        }
-    }
-
-    private class ItemClickListener implements View.OnClickListener {
-        private AlphaAnimation alphaAnimation = new AlphaAnimation(1f, 0.2f);
-        private int position;
-
-        public ItemClickListener(int position) {
-            this.position = position;
-        }
-
-        @Override
-        public void onClick(View view) {
-            view.startAnimation(alphaAnimation);
-            System.out.println(getAdapterPosition() +"----"+ position+"------"+ pickerFragment.getAdapter().getItemCount());
-            String path = pickerFragment.getFiles().get(getAdapterPosition()).getPath();
-            pickerFragment.navigateToPath(path);
         }
     }
 }
