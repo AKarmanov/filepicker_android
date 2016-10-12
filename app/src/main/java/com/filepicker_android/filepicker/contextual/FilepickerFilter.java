@@ -162,11 +162,36 @@ public class FilepickerFilter {
         switch(setting.getOption()) {
             case FilepickerFilter.SIZE :
                 if (setting.getType().equals(FilepickerFilter.SORT_TYPE_DESC)) {
-                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_DESC));
+                    Collections.sort(files, new SizeSort(FilepickerFilter.SORT_TYPE_DESC));
                 }
                 else {
-                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_ASC));
+                    Collections.sort(files, new SizeSort(FilepickerFilter.SORT_TYPE_ASC));
                 }
+                break;
+            case FilepickerFilter.NAME :
+                if (setting.getType().equals(FilepickerFilter.SORT_TYPE_DESC)) {
+                    Collections.sort(files, new NameSort(FilepickerFilter.SORT_TYPE_DESC));
+                }
+                else {
+                    Collections.sort(files, new NameSort(FilepickerFilter.SORT_TYPE_ASC));
+                }
+                break;
+            case FilepickerFilter.DATE :
+                if (setting.getType().equals(FilepickerFilter.SORT_TYPE_DESC)) {
+                    Collections.sort(files, new DateSort(FilepickerFilter.SORT_TYPE_DESC));
+                }
+                else {
+                    Collections.sort(files, new DateSort(FilepickerFilter.SORT_TYPE_ASC));
+                }
+                break;
+            case FilepickerFilter.TYPE :
+                if (setting.getType().equals(FilepickerFilter.SORT_TYPE_DESC)) {
+                    Collections.sort(files, new TypeSort(FilepickerFilter.SORT_TYPE_DESC));
+                }
+                else {
+                    Collections.sort(files, new TypeSort(FilepickerFilter.SORT_TYPE_ASC));
+                }
+                break;
 
         }
     }
@@ -191,6 +216,69 @@ public class FilepickerFilter {
                     return (int) (o2.getSize() - o1.getSize());
                 default:
                     return (int) (o2.getSize() - o1.getSize());
+            }
+        }
+    }
+
+    private static class NameSort implements Comparator<FilepickerFile> {
+        private String type;
+
+        public NameSort(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public int compare(FilepickerFile o1, FilepickerFile o2) {
+            switch (type) {
+                case FilepickerFilter.SORT_TYPE_ASC :
+                    return o1.getName().compareTo(o2.getName());
+                case FilepickerFilter.SORT_TYPE_DESC :
+                    return o2.getName().compareTo(o1.getName());
+                default:
+                    return o1.getName().compareTo(o2.getName());
+            }
+        }
+    }
+
+    private static class DateSort implements Comparator<FilepickerFile> {
+        private String type;
+
+        public DateSort(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public int compare(FilepickerFile o1, FilepickerFile o2) {
+            switch (type) {
+                case FilepickerFilter.SORT_TYPE_ASC :
+                    return (int) (o1.getLastModified() - o2.getLastModified());
+                case FilepickerFilter.SORT_TYPE_DESC :
+                    return (int) (o2.getLastModified() - o1.getLastModified());
+                default:
+                    return (int) (o1.getLastModified() - o2.getLastModified());
+            }
+        }
+    }
+
+    private static class TypeSort implements Comparator<FilepickerFile> {
+        private String type;
+
+        public TypeSort(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public int compare(FilepickerFile o1, FilepickerFile o2) {
+            if (o1.getType() == null || o2.getType() == null) {
+                return 0;
+            }
+            switch (type) {
+                case FilepickerFilter.SORT_TYPE_ASC :
+                    return o1.getType().compareTo(o2.getType());
+                case FilepickerFilter.SORT_TYPE_DESC :
+                    return o2.getType().compareTo(o1.getType());
+                default:
+                    return o1.getType().compareTo(o2.getType());
             }
         }
     }

@@ -18,7 +18,6 @@ import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.contextual.FilepickerFilter;
 import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 import com.filepicker_android.filepicker.pickslist.FilePicksFragment;
-import com.filepicker_android.filepicker.pickslist.PicksListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
