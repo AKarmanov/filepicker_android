@@ -1,0 +1,8 @@
+- Complete sorting switch
+- Replace file count and size with one text view
+- Add a list of file types and determine icon correctly
+- Add icons to view dialog
+- Add proper identification of bottom action bar
+- Set picks correctly on fragment transitions
+- Change theme
+- Make layout work correctly
