@@ -11,12 +11,9 @@ import com.filepicker_android.filepicker.Filepicker;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.contextual.FilepickerFilter;
-import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
-import com.filepicker_android.filepicker.pickerlist.viewholder.ItemBase;
-import com.filepicker_android.filepicker.pickerlist.viewholder.ItemGridDetail;
-import com.filepicker_android.filepicker.pickerlist.viewholder.ItemGridSimple;
-import com.filepicker_android.filepicker.pickerlist.viewholder.ItemListDetail;
-import com.filepicker_android.filepicker.pickerlist.viewholder.ItemListSimple;
+import com.filepicker_android.filepicker.pickslist.viewholder.ItemBase;
+import com.filepicker_android.filepicker.pickslist.viewholder.ItemGridSimple;
+import com.filepicker_android.filepicker.pickslist.viewholder.ItemListSimple;
 
 import java.util.List;
 
@@ -40,6 +37,8 @@ public class FilePicksAdapter extends RecyclerView.Adapter<ItemBase>  {
         this.picksFragment = picksFragment;
     }
 
+
+
     @Override
     public ItemBase onCreateViewHolder(ViewGroup parent, int viewType) {
 //        Log.i("FPA", "Created view holder");
@@ -48,40 +47,24 @@ public class FilePicksAdapter extends RecyclerView.Adapter<ItemBase>  {
         ItemBase item;
         switch(setting.getOption()) {
             case FilepickerFilter.GRID :
-                if (setting.getType().equals(FilepickerFilter.LAYOUT_TYPE_DETAILED)) {
-                    v = LayoutInflater.from(parent.getContext())
-                            .inflate(ItemGridDetail.layoutId, parent, false);
-                    item = new ItemGridDetail(v);
-                    Log.i("Case", "Grid detail");
-                }
-                else {
                     v = LayoutInflater.from(parent.getContext())
                             .inflate(ItemGridSimple.layoutId, parent, false);
                     item = new ItemGridSimple(v);
-                    Log.i("Case", "Grid simple");
-                }
+                    Log.i("Case", "Picks Grid detail");
                 break;
             case FilepickerFilter.LIST :
-                if (setting.getType().equals(FilepickerFilter.LAYOUT_TYPE_DETAILED)) {
-                    v = LayoutInflater.from(parent.getContext())
-                            .inflate(ItemListDetail.layoutId, parent, false);
-                    item = new ItemListDetail(v);
-                    Log.i("Case", "List detail");
-                }
-                else {
                     v = LayoutInflater.from(parent.getContext())
                             .inflate(ItemListSimple.layoutId, parent, false);
                     item = new ItemListSimple(v);
-                    Log.i("Case", "List simple");
-                }
+                    Log.i("Case", "Picks List detail");
                 break;
             default :
                 v = LayoutInflater.from(parent.getContext())
-                        .inflate(ItemListDetail.layoutId, parent, false);
-                item = new ItemListDetail(v);
-                Log.i("Case", "Default");
+                        .inflate(ItemListSimple.layoutId, parent, false);
+                item = new ItemListSimple(v);
+                Log.i("Case", "Picks Default");
         }
-//        item.setPickerFragment(picksFragment);
+        item.setPicksFragment(picksFragment);
         return item;
     }
 

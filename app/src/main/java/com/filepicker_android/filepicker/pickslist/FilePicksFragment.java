@@ -61,6 +61,7 @@ public class FilePicksFragment extends Fragment implements FragmentFilterInterfa
         appContext = getActivity().getApplicationContext();
         files = ((FilepickerContext)appContext).getCollection().getPicks();
         rlu = new RecyclerLayoutUtils();
+        adapter = new FilePicksAdapter(getObject());
     }
 
 

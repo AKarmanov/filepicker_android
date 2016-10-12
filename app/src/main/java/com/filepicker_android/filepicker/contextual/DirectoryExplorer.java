@@ -72,7 +72,6 @@ public class DirectoryExplorer {
     }
 
     public void unlistPaths(String path) {
-        Log.i("S", visitedPaths.toString());
         Iterator<String> it = visitedPaths.iterator();
         boolean clear = false;
         while (it.hasNext()) {
@@ -89,10 +88,9 @@ public class DirectoryExplorer {
 
     private void getMimeTypesForFiles(List<FilepickerFile> files) {
         for (FilepickerFile f : files) {
-            String extension = MimeTypeMap.getFileExtensionFromUrl(f.getPath().replaceAll("[\\s,\\[\\]()]", ""));
-            if (extension != null) {
-                f.setType(MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension));
-            }
+            String name = f.getName();
+            String extension = name.substring(name.lastIndexOf(".") + 1);
+            f.setType(MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension));
         }
     }
 

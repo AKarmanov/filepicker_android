@@ -17,6 +17,7 @@ import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.contextual.FilepickerFilter;
 import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
+import com.filepicker_android.filepicker.pickslist.FilePicksFragment;
 import com.filepicker_android.filepicker.pickslist.PicksListFragment;
 
 import java.util.ArrayList;
@@ -120,7 +121,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
                 break;
             case PICKS_FRAGMENT:
                 ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.filesFragment, new PicksListFragment());
+                ft.replace(R.id.filesFragment, new FilePicksFragment());
                 ft.addToBackStack("picks-fragment");
                 ft.commit();
                 break;
