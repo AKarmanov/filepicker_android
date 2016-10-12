@@ -45,9 +45,10 @@ public class FilepickerContext extends Application {
         typeFaces = new TypeFaces(getApplicationContext()).getTypefaces();
         config = new FilepickerConfig();
         directoryExplorer = new DirectoryExplorer();
+        directoryExplorer.setConfig(config);
     }
 
     public boolean fileSelectable(FilepickerFile file) {
-        return true;
+        return config.getPickTypes().contains(file.getType());
     }
 }

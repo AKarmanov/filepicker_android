@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.R;
+import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.pickerlist.FilePickerAdapter;
 import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
@@ -63,7 +64,16 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
         this.pickerFragment = pickerFragment;
     }
 
-    public void setUpView(FilepickerFile item, int position) {}
+    public void setUpView(FilepickerFile item, int position) {
+        FilepickerContext appContext = (FilepickerContext) pickerFragment.getAppContext();
+
+        if (!appContext.fileSelectable(item)) {
+            pickButton.setVisibility(Button.INVISIBLE);
+        }
+        else {
+            pickButton.setVisibility(Button.VISIBLE);
+        }
+    }
 
     @Override
     public void onClick(View view) {

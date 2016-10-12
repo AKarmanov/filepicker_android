@@ -21,9 +21,14 @@ public class FilepickerConfig implements Parcelable {
 
     public static final String FOLDER = "folder";
     //TODO replace to mime type
-    public static final String PDF = "pdf";
-    public static final String JPG = "jpg";
-    public static final String PNG = "png";
+    public static final String PDF = "application/pdf";
+    public static final String JPG = "image/jpeg";
+    public static final String PNG = "image/png";
+    public static final String TEXT = "text/plain";
+    public static final String HTML = "text/html";
+    public static final String PPS = "application/mspowerpoint";
+    public static final String PPT = "application/mspowerpoint";
+
 
     public static final String VIEW_MODE_LIST = "list";
     public static final String VIEW_MODE_GRID = "grid";

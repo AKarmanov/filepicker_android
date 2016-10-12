@@ -19,10 +19,19 @@ public class DirectoryExplorer {
 
 
     private List<String> visitedPaths;
+    private FilepickerConfig config;
 
     public DirectoryExplorer() {
         visitedPaths = new ArrayList<>();
         visitedPaths.add(getInitialPath());
+    }
+
+    public FilepickerConfig getConfig() {
+        return config;
+    }
+
+    public void setConfig(FilepickerConfig config) {
+        this.config = config;
     }
 
     public List<FilepickerFile> getFiles(String path) {
@@ -88,9 +97,14 @@ public class DirectoryExplorer {
 
     private void getMimeTypesForFiles(List<FilepickerFile> files) {
         for (FilepickerFile f : files) {
-            String name = f.getName();
-            String extension = name.substring(name.lastIndexOf(".") + 1);
-            f.setType(MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension));
+            if (f.isDir()) {
+                f.setType(FilepickerConfig.FOLDER);
+            }
+            else {
+                String name = f.getName();
+                String extension = name.substring(name.lastIndexOf(".") + 1);
+                f.setType(MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension));
+            }
         }
     }
 

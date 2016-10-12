@@ -21,6 +21,7 @@ public class ItemListSimple extends ItemBase {
 
     @Override
     public void setUpView(FilepickerFile item, int position) {
+        super.setUpView(item, position);
         FilepickerContext appContext = (FilepickerContext) pickerFragment.getAppContext();
 
         fileName.setText(item.getName());
@@ -29,13 +30,6 @@ public class ItemListSimple extends ItemBase {
         }
         else {
             icon.setText(R.string.icon_file);
-        }
-
-        if (!appContext.fileSelectable(item)) {
-            pickButton.setVisibility(Button.INVISIBLE);
-        }
-        else {
-            pickButton.setVisibility(Button.VISIBLE);
         }
 
         icon.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
