@@ -3,8 +3,10 @@ package com.filepicker_android.filepicker.contextual;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -155,7 +157,21 @@ public class FilepickerFilter {
         }
     }
 
-    public static SizeSort sizeSortInstance(String sortType) {
+    public static void sort(List<FilepickerFile> files) {
+        FilepickerFilter.FilterSetting setting = FilepickerFilter.getSortOption();
+        switch(setting.getOption()) {
+            case FilepickerFilter.SIZE :
+                if (setting.getType().equals(FilepickerFilter.SORT_TYPE_DESC)) {
+                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_DESC));
+                }
+                else {
+                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_ASC));
+                }
+
+        }
+    }
+
+    private static SizeSort sizeSortInstance(String sortType) {
         return new SizeSort(sortType);
     }
 

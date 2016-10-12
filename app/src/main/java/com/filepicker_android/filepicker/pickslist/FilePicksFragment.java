@@ -60,6 +60,7 @@ public class FilePicksFragment extends Fragment implements FragmentFilterInterfa
         filepicker = (Filepicker) getActivity();
         appContext = getActivity().getApplicationContext();
         files = ((FilepickerContext)appContext).getCollection().getPicks();
+        FilepickerFilter.sort(files);
         rlu = new RecyclerLayoutUtils();
         adapter = new FilePicksAdapter(getObject());
     }
@@ -112,22 +113,7 @@ public class FilePicksFragment extends Fragment implements FragmentFilterInterfa
     }
 
     public void configureLayout() {
-        RecyclerLayoutUtils.LayoutManagerType type = RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        switch (FilepickerFilter.getLayoutOption().getOption()) {
-            case FilepickerFilter.GRID :
-                type = RecyclerLayoutUtils.LayoutManagerType.GRID_LAYOUT_MANAGER;
-                break;
-            case FilepickerFilter.LIST :
-                type = RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-                break;
-
-        }
-        rlu.setRecyclerLayoutManager(
-                getActivity(),
-                recycler,
-                layoutManager,
-                type
-        );
+        rlu.changeRecyclerLayoutManager(getActivity(), recycler, layoutManager);
         if (adapter != null) {
             adapter.onDetachedFromRecyclerView(recycler);
             adapter = new FilePicksAdapter(getObject());
@@ -137,17 +123,7 @@ public class FilePicksFragment extends Fragment implements FragmentFilterInterfa
 
     @Override
     public void sortList() {
-        FilepickerFilter.FilterSetting setting = FilepickerFilter.getSortOption();
-        switch(setting.getOption()) {
-            case FilepickerFilter.SIZE :
-                if (setting.getType().equals(FilepickerFilter.SORT_TYPE_DESC)) {
-                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_DESC));
-                }
-                else {
-                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_ASC));
-                }
-
-        }
+        FilepickerFilter.sort(files);
         adapter.notifyDataSetChanged();
     }
 }

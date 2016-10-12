@@ -134,12 +134,14 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
         protected void onPostExecute(List<FilepickerFile> filepickerFiles) {
             if (files == null) {
                 files = filepickerFiles;
+                FilepickerFilter.sort(files);
                 adapter = new FilePickerAdapter(getObject());
                 recycler.setAdapter(adapter);
             }
             else {
                 files.clear();
                 files.addAll(filepickerFiles);
+                FilepickerFilter.sort(files);
                 adapter.notifyDataSetChanged();
                 System.out.println(files.size() +"!--!"+ adapter.getItemCount());
             }
@@ -164,22 +166,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
     }
 
     public void configureLayout() {
-        RecyclerLayoutUtils.LayoutManagerType type = RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        switch (FilepickerFilter.getLayoutOption().getOption()) {
-            case FilepickerFilter.GRID :
-                type = RecyclerLayoutUtils.LayoutManagerType.GRID_LAYOUT_MANAGER;
-                break;
-            case FilepickerFilter.LIST :
-                type = RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-                break;
-
-        }
-        rlu.setRecyclerLayoutManager(
-                getActivity(),
-                recycler,
-                layoutManager,
-                type
-        );
+        rlu.changeRecyclerLayoutManager(getActivity(), recycler, layoutManager);
         if (adapter != null) {
             adapter.onDetachedFromRecyclerView(recycler);
             adapter = new FilePickerAdapter(getObject());
@@ -190,18 +177,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
 
     @Override
     public void sortList() {
-        FilepickerFilter.FilterSetting setting = FilepickerFilter.getSortOption();
-        switch(setting.getOption()) {
-            case FilepickerFilter.SIZE :
-                if (setting.getType().equals(FilepickerFilter.SORT_TYPE_DESC)) {
-                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_DESC));
-                }
-                else {
-                    Collections.sort(files, FilepickerFilter.sizeSortInstance(FilepickerFilter.SORT_TYPE_ASC));
-                }
-
-        }
-//        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
+        FilepickerFilter.sort(files);
         adapter.notifyDataSetChanged();
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.filepicker_android.filepicker.contextual.FilepickerFilter;
 import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 
 /**
@@ -24,7 +25,29 @@ public class RecyclerLayoutUtils {
 
     public static LayoutManagerType currentLayoutManagerType;
 
-    public void setRecyclerLayoutManager(Context context,
+    public void changeRecyclerLayoutManager(Context activity,
+                                            RecyclerView recycler,
+                                            RecyclerView.LayoutManager layoutManager) {
+        RecyclerLayoutUtils.LayoutManagerType type =
+                RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        switch (FilepickerFilter.getLayoutOption().getOption()) {
+            case FilepickerFilter.GRID :
+                type = RecyclerLayoutUtils.LayoutManagerType.GRID_LAYOUT_MANAGER;
+                break;
+            case FilepickerFilter.LIST :
+                type = RecyclerLayoutUtils.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+                break;
+
+        }
+        setRecyclerLayoutManager(
+                activity,
+                recycler,
+                layoutManager,
+                type
+        );
+    }
+
+    private void setRecyclerLayoutManager(Context context,
                                              RecyclerView recycler,
                                              RecyclerView.LayoutManager layoutManager,
                                              LayoutManagerType layoutManagerType) {
