@@ -25,17 +25,13 @@ public class ItemListDetail extends ItemBase {
         FilepickerContext appContext = (FilepickerContext) pickerFragment.getAppContext();
 
         fileName.setText(item.getName());
-        fileSize.setText(item.getSizeString());
+        fileSizeOrCount.setText(item.getSizeString());
         lastModified.setText(item.getLastModifiedAsString());
         if (item.isDir()) {
-            childCount.setVisibility(TextView.VISIBLE);
-            fileSize.setVisibility(TextView.INVISIBLE);
-            childCount.setText(String.format("%s file(s)", item.getChildCount()));
+            fileSizeOrCount.setText(String.format("%s file(s)", item.getChildCount()));
         }
         else {
             icon.setText(R.string.icon_file);
-            childCount.setVisibility(TextView.INVISIBLE);
-            fileSize.setVisibility(TextView.VISIBLE);
         }
 
         if (!appContext.fileSelectable(item)) {

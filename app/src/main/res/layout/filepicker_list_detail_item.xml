@@ -42,14 +42,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/li_fileSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/li_childCount"
+                        android:id="@+id/li_fileSizeOrCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"

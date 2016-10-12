@@ -21,10 +21,9 @@ import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickListener {
 
     protected final TextView fileName;
-    protected final TextView fileSize;
     protected final TextView icon;
+    protected final TextView fileSizeOrCount;
     protected final TextView lastModified;
-    protected final TextView childCount;
     protected final Button pickButton;
 
     protected FilePickerFragment pickerFragment;
@@ -32,10 +31,9 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
     public ItemBase(View itemView) {
         super(itemView);
         this.fileName = (TextView)itemView.findViewById(R.id.li_fileName);
-        this.fileSize = (TextView)itemView.findViewById(R.id.li_fileSize);
         this.lastModified = (TextView)itemView.findViewById(R.id.li_lastModified);
         this.icon = (TextView)itemView.findViewById(R.id.li_icon);
-        this.childCount = (TextView)itemView.findViewById(R.id.li_childCount);
+        this.fileSizeOrCount = (TextView) itemView.findViewById(R.id.li_fileSizeOrCount);
         this.pickButton = (Button) itemView.findViewById(R.id.li_pickButton);
         this.pickButton.setOnClickListener(new PickButtonListener());
         itemView.setOnClickListener(this);
@@ -43,10 +41,6 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
 
     public TextView getFileName() {
         return fileName;
-    }
-
-    public TextView getFileSize() {
-        return fileSize;
     }
 
     public TextView getIcon() {
@@ -57,12 +51,12 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
         return lastModified;
     }
 
-    public TextView getChildCount() {
-        return childCount;
-    }
-
     public Button getPickButton() {
         return pickButton;
+    }
+
+    public TextView getFileSizeOrCount() {
+        return fileSizeOrCount;
     }
 
     public void setPickerFragment(FilePickerFragment pickerFragment) {
