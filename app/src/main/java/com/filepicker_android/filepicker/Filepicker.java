@@ -73,7 +73,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
             menu.getItem(i).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         this.menu = menu;
-        menu.getItem(0).setTitle(String.format(Locale.ENGLISH, "%d Pick(s)", 0));
+        menu.getItem(0).setTitle(String.format(Locale.ENGLISH, "%d Pick(s)", appContext.getCollection().getPicks().size()));
         return super.onCreateOptionsMenu(menu);
     }
 

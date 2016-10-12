@@ -20,6 +20,7 @@ public class FilepickerConfig implements Parcelable {
     public static final String EXTRA_VIEW_MODE = "viewMode"; //List or grid
 
     public static final String FOLDER = "folder";
+    //TODO replace to mime type
     public static final String PDF = "pdf";
     public static final String JPG = "jpg";
     public static final String PNG = "png";

@@ -8,4 +8,6 @@
     <string name="icon_trash">&#xf1f8;</string>
     <string name="icon_plus">&#xf067;</string>
     <string name="icon_minus">&#xf068;</string>
+    <string name="icon_excel">&#xf1c3;</string>
+    <string name="icon_archive">&#xf1c6;</string>
 </resources>
