@@ -30,13 +30,6 @@ public class ItemGridSimple extends ItemBase {
             icon.setText(R.string.icon_file);
         }
 
-        if (!appContext.fileSelectable(item)) {
-            removeButton.setVisibility(Button.INVISIBLE);
-        }
-        else {
-            removeButton.setVisibility(Button.VISIBLE);
-        }
-
         icon.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
         removeButton.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
     }
