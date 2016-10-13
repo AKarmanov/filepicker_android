@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#607d8b</color>
     <color name="colorPrimaryDark">#263238</color>
+    <color name="colorPrimary">#607d8b</color>
+    <color name="colorPrimaryLight">#90a4ae</color>
+    <color name="colorPrimaryLighter">#cfd8dc</color>
     <color name="colorAccent">#ff9800</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="bb_textLight">#999999</color>
+    <color name="bb_textIcon">#777777</color>
 </resources>

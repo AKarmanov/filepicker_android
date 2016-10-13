@@ -85,6 +85,10 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         return true;
     }
 
+    public FilepickerContext getAppContext() {
+        return appContext;
+    }
+
     @Override
     public boolean addRemoveItem(List<FilepickerFile> files, boolean add, int position) {
         Log.d("AddRemoveInfo: ", Boolean.toString(add) +", "+ Integer.toString(position) +", "+ Integer.toString(files.size()));

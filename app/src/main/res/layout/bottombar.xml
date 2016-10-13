@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="50dp"
     android:paddingBottom="2dp"
     android:paddingTop="2dp"
     android:paddingLeft="2dp"
@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textAlignment="center"
+            android:textColor="@color/bb_textIcon"
             style="?android:borderlessButtonStyle"
             android:text="@string/icon_check"/>
         <TextView
@@ -30,7 +31,9 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="12sp"
-            android:text="DONE"/>
+            android:textColor="@color/bb_textLight"
+            android:text="DONE"
+            android:layout_marginTop="-10dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,14 +46,17 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textAlignment="center"
+            android:textColor="@color/bb_textIcon"
             style="?android:borderlessButtonStyle"
-            android:text="@string/icon_close"/>
+            android:text="@string/icon_close" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="12sp"
-            android:text="CANCEL"/>
+            android:textColor="@color/bb_textLight"
+            android:text="CANCEL"
+            android:layout_marginTop="-10dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,13 +69,16 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textAlignment="center"
+            android:textColor="@color/bb_textIcon"
             style="?android:borderlessButtonStyle"
-            android:text="@string/icon_grid"/>
+            android:text="@string/icon_grid" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="12sp"
-            android:text="VIEW"/>
+            android:textColor="@color/bb_textLight"
+            android:text="VIEW"
+            android:layout_marginTop="-10dp" />
     </LinearLayout>
 </LinearLayout>
