@@ -45,10 +45,23 @@ public class FilepickerContext extends Application {
         typeFaces = new TypeFaces(getApplicationContext()).getTypefaces();
         config = new FilepickerConfig();
         directoryExplorer = new DirectoryExplorer();
-        directoryExplorer.setConfig(config);
     }
 
     public boolean fileSelectable(FilepickerFile file) {
-        return config.getPickTypes().contains(file.getType());
+        String type = file.getType();
+        if (config.getPickTypes().contains(FilepickerConfig.ANY)
+                && !config.getDontPickTypes().contains(FilepickerConfig.ANY)) {
+            return true;
+        }
+        else if (config.getDontPickTypes().contains(FilepickerConfig.ANY)){
+            return false;
+        }
+
+        if (config.getPickTypes().contains(type) && !config.getDontPickTypes().contains(type)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

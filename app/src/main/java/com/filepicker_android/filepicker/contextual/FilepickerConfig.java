@@ -19,6 +19,7 @@ public class FilepickerConfig implements Parcelable {
     public static final String EXTRA_MAX_FILES = "maxFiles";
     public static final String EXTRA_VIEW_MODE = "viewMode"; //List or grid
 
+    public static final String ANY = "any";
     public static final String FOLDER = "folder";
     //TODO replace to mime type
     public static final String PDF = "application/pdf";
@@ -35,12 +36,12 @@ public class FilepickerConfig implements Parcelable {
 
     private ArrayList<String> pickTypes = new ArrayList<>(
             Arrays.asList(new String[]{
-                    FOLDER,
-                    PDF,
-                    JPG,
-                    PNG
+                    ANY
             })
     );
+
+    private ArrayList<String> dontPickTypes = new ArrayList<>();
+
     private int maxFiles = 10;
     private String viewMode = VIEW_MODE_LIST;
 
@@ -50,6 +51,14 @@ public class FilepickerConfig implements Parcelable {
 
     public void setPickTypes(ArrayList<String> pickTypes) {
         this.pickTypes = pickTypes;
+    }
+
+    public ArrayList<String> getDontPickTypes() {
+        return dontPickTypes;
+    }
+
+    public void setDontPickTypes(ArrayList<String> dontPickTypes) {
+        this.dontPickTypes = dontPickTypes;
     }
 
     public int getMaxFiles() {
@@ -68,6 +77,9 @@ public class FilepickerConfig implements Parcelable {
         this.viewMode = viewMode;
     }
 
+    public FilepickerConfig() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -76,20 +88,19 @@ public class FilepickerConfig implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringList(this.pickTypes);
+        dest.writeStringList(this.dontPickTypes);
         dest.writeInt(this.maxFiles);
         dest.writeString(this.viewMode);
     }
 
-    public FilepickerConfig() {
-    }
-
     protected FilepickerConfig(Parcel in) {
         this.pickTypes = in.createStringArrayList();
+        this.dontPickTypes = in.createStringArrayList();
         this.maxFiles = in.readInt();
         this.viewMode = in.readString();
     }
 
-    public static final Parcelable.Creator<FilepickerConfig> CREATOR = new Parcelable.Creator<FilepickerConfig>() {
+    public static final Creator<FilepickerConfig> CREATOR = new Creator<FilepickerConfig>() {
         @Override
         public FilepickerConfig createFromParcel(Parcel source) {
             return new FilepickerConfig(source);

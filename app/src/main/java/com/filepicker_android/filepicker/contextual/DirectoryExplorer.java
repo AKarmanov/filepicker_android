@@ -19,19 +19,10 @@ public class DirectoryExplorer {
 
 
     private List<String> visitedPaths;
-    private FilepickerConfig config;
 
     public DirectoryExplorer() {
         visitedPaths = new ArrayList<>();
         visitedPaths.add(getInitialPath());
-    }
-
-    public FilepickerConfig getConfig() {
-        return config;
-    }
-
-    public void setConfig(FilepickerConfig config) {
-        this.config = config;
     }
 
     public List<FilepickerFile> getFiles(String path) {

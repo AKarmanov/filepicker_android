@@ -1,13 +1,21 @@
 <resources>
     <string name="app_name">Filepicker</string>
+
+    <!--Icons-->
     <string name="icon_heart">&#xf004;</string>
     <string name="icon_folder">&#xf07b;</string>
     <string name="icon_pdf">&#xf1c1;</string>
     <string name="icon_image">&#xf03e;</string>
-    <string name="icon_file">&#xf15b;</string>
+    <string name="icon_file">&#xf016;</string>
     <string name="icon_trash">&#xf1f8;</string>
     <string name="icon_plus">&#xf067;</string>
     <string name="icon_minus">&#xf068;</string>
     <string name="icon_excel">&#xf1c3;</string>
     <string name="icon_archive">&#xf1c6;</string>
+    <string name="icon_powerpoint">&#xf1c4;</string>
+    <string name="icon_code">&#xf1c9;</string>
+    <string name="icon_check">&#xf00c;</string>
+    <string name="icon_close">&#xf00d;</string>
+    <string name="icon_grid">&#xf00a;</string>
+
 </resources>

@@ -1,9 +1,9 @@
-- Don't show files that don't match specified types
+- Don't show files that don't match specified types (done)
 - Complete sorting switch (done)
 - Replace file count and size with one text view (done)
 - Add a list of file types and determine icon correctly
 - Add icons to view dialog
 - Add proper identification of bottom action bar
 - Set picks correctly on fragment transitions (done)
-- Change theme
+- Change theme (done)
 - Make layout work correctly

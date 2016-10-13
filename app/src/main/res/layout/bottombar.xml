@@ -3,39 +3,73 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:paddingBottom="5dp"
-    android:paddingTop="5dp"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
+    android:paddingBottom="2dp"
+    android:paddingTop="2dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
     android:clickable="true"
     android:background="#ffffff"
     android:layout_alignBottom="@+id/view"
     android:weightSum="3">
 
-    <Button
-        android:id="@+id/donePickingButton"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAlignment="center"
-        style="?android:borderlessButtonStyle"
-        android:text="PICK"/>
+        android:orientation="vertical"
+        android:textAlignment="center">
+        <Button
+            android:id="@+id/donePickingButton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            style="?android:borderlessButtonStyle"
+            android:text="@string/icon_check"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:text="DONE"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/cancelPickingButton"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAlignment="center"
-        style="?android:borderlessButtonStyle"
-        android:text="CANCEL"/>
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/cancelPickingButton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            style="?android:borderlessButtonStyle"
+            android:text="@string/icon_close"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:text="CANCEL"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/configureFilterButton"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAlignment="center"
-        style="?android:borderlessButtonStyle"
-        android:text="VIEW"/>
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/configureFilterButton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            style="?android:borderlessButtonStyle"
+            android:text="@string/icon_grid"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:text="VIEW"/>
+    </LinearLayout>
 </LinearLayout>

@@ -39,7 +39,6 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         FilepickerConfig config = getIntent().getParcelableExtra(FilepickerConfig.EXTRA_CONFIG);
         if (config != null) {
             appContext.setConfig(config);
-            appContext.getDirectoryExplorer().setConfig(config);
         }
         setContentView(R.layout.activity_filepicker);
         transitionFragment(PICK_FRAGMENT);
