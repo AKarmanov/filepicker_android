@@ -2,6 +2,8 @@ package com.filepicker_android.filepicker.contextual;
 
 import android.util.Log;
 
+import com.filepicker_android.filepicker.R;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,20 +32,20 @@ public class FilepickerFilter {
     static {
         sortOption = new HashMap<>();
         sortOption.put(SIZE, new FilterSetting[]{
-                new FilterSetting(SIZE, SORT_TYPE_ASC, false),
-                new FilterSetting(SIZE, SORT_TYPE_DESC, false)
+                new FilterSetting(SIZE, SORT_TYPE_ASC, false, "SIZE", R.string.icon_sort_num_asc),
+                new FilterSetting(SIZE, SORT_TYPE_DESC, false, "SIZE", R.string.icon_sort_num_desc)
         });
         sortOption.put(TYPE, new FilterSetting[]{
-                new FilterSetting(TYPE, SORT_TYPE_ASC, false),
-                new FilterSetting(TYPE, SORT_TYPE_DESC, false)
+                new FilterSetting(TYPE, SORT_TYPE_ASC, false, "TYPE", R.string.icon_sort_asc),
+                new FilterSetting(TYPE, SORT_TYPE_DESC, false, "TYPE", R.string.icon_sort_desc)
         });
         sortOption.put(DATE, new FilterSetting[]{
-                new FilterSetting(DATE, SORT_TYPE_ASC, false),
-                new FilterSetting(DATE, SORT_TYPE_DESC, false)
+                new FilterSetting(DATE, SORT_TYPE_ASC, false, "DATE", R.string.icon_sort_asc),
+                new FilterSetting(DATE, SORT_TYPE_DESC, false, "DATE", R.string.icon_sort_desc)
         });
         sortOption.put(NAME, new FilterSetting[]{
-                new FilterSetting(NAME, SORT_TYPE_ASC, false),
-                new FilterSetting(NAME, SORT_TYPE_DESC, true)
+                new FilterSetting(NAME, SORT_TYPE_ASC, false, "NAME", R.string.icon_sort_alpha_asc),
+                new FilterSetting(NAME, SORT_TYPE_DESC, true, "NAME", R.string.icon_sort_alpha_desc)
         });
     }
 
@@ -57,12 +59,12 @@ public class FilepickerFilter {
     static {
         layoutOption = new HashMap<>();
         layoutOption.put(GRID, new FilterSetting[]{
-                new FilterSetting(GRID, LAYOUT_TYPE_DETAILED, false),
-                new FilterSetting(GRID, LAYOUT_TYPE_SIMPLE, false)
+                new FilterSetting(GRID, LAYOUT_TYPE_DETAILED, false, "GRID DETAILED", R.string.icon_grid),
+                new FilterSetting(GRID, LAYOUT_TYPE_SIMPLE, false, "GRID SIMPLE", R.string.icon_grid)
         });
         layoutOption.put(LIST, new FilterSetting[]{
-                new FilterSetting(LIST, LAYOUT_TYPE_DETAILED, true),
-                new FilterSetting(LIST, LAYOUT_TYPE_SIMPLE, false)
+                new FilterSetting(LIST, LAYOUT_TYPE_DETAILED, true, "LIST DETAILED", R.string.icon_list_ul),
+                new FilterSetting(LIST, LAYOUT_TYPE_SIMPLE, false, "LIST SIMPLE", R.string.icon_list_ol)
         });
     }
 
@@ -120,12 +122,16 @@ public class FilepickerFilter {
     public static class FilterSetting {
         private String option;
         private String type;
+        private String text;
         private boolean set;
+        private int icon;
 
-        public FilterSetting(String option, String type, boolean set) {
+        public FilterSetting(String option, String type, boolean set, String text, int icon) {
             this.option = option;
             this.type = type;
             this.set = set;
+            this.text = text;
+            this.icon = icon;
         }
 
         public String getOption() {
@@ -154,6 +160,14 @@ public class FilepickerFilter {
 
         public void set() {
             set = true;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public int getIcon() {
+            return icon;
         }
     }
 

@@ -17,5 +17,16 @@
     <string name="icon_check">&#xf00c;</string>
     <string name="icon_close">&#xf00d;</string>
     <string name="icon_grid">&#xf00a;</string>
+    <string name="icon_sort_alpha_asc">&#xf15d;</string>
+    <string name="icon_sort_alpha_desc">&#xf15e;</string>
+    <string name="icon_sort_num_asc">&#xf162;</string>
+    <string name="icon_sort_num_desc">&#xf163;</string>
+    <string name="icon_sort_asc">&#xf0de;</string>
+    <string name="icon_sort_desc">&#xf0dd;</string>
+    <string name="icon_sort_amount_asc">&#xf160;</string>
+    <string name="icon_sort_amount_desc">&#xf161;</string>
+    <string name="icon_list_ol">&#xf0cb;</string>
+    <string name="icon_list_ul">&#xf03a;</string>
+    <string name="icon_bars">&#xf0c9;</string>
 
 </resources>

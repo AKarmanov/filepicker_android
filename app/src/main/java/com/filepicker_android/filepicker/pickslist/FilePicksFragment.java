@@ -38,7 +38,6 @@ import java.util.List;
 
 public class FilePicksFragment extends Fragment implements FragmentFilterInterface {
 
-    private static final String SAVED_PATHS = "paths";
     private List<FilepickerFile> files;
     private FilePicksAdapter adapter;
     private Context appContext;
@@ -80,6 +79,7 @@ public class FilePicksFragment extends Fragment implements FragmentFilterInterfa
         configureLayout();
         Log.i("****", "View created");
         setHasOptionsMenu(true);
+        filepicker.setTitle("Picked files");
         return v;
     }
 

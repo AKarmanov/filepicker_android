@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.filepicker_android.filepicker.Filepicker;
 import com.filepicker_android.filepicker.R;
@@ -139,6 +140,7 @@ public class ActionTabFragment extends Fragment {
             else {
                 b = (Button) convertView;
             }
+            LinearLayout l = new LinearLayout(getActivity());
 
             if (options.get(position).isSet()) {
                 b.setTextColor(Color.GREEN);

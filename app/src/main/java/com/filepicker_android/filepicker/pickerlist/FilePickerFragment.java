@@ -83,6 +83,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
 //        navigateToPath(de.getLastPath());
         Log.i("****", "View created");
         setHasOptionsMenu(true);
+        filepicker.setTitle(((FilepickerContext)appContext).getConfig().getTitle());
         return v;
     }
 

@@ -44,6 +44,7 @@ public class FilepickerConfig implements Parcelable {
 
     private int maxFiles = 10;
     private String viewMode = VIEW_MODE_LIST;
+    private String title = "Filepicker";
 
     public ArrayList<String> getPickTypes() {
         return pickTypes;
@@ -77,8 +78,15 @@ public class FilepickerConfig implements Parcelable {
         this.viewMode = viewMode;
     }
 
-    public FilepickerConfig() {
+    public String getTitle() {
+        return title;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public FilepickerConfig() {}
 
     @Override
     public int describeContents() {

@@ -3,7 +3,7 @@
 - Replace file count and size with one text view (done)
 - Add a list of file types and determine icon correctly
 - Add icons to view dialog
-- Add proper identification of bottom action bar
+- Add proper identification of bottom action bar (done)
 - Set picks correctly on fragment transitions (done)
 - Change theme (done)
 - Make layout work correctly

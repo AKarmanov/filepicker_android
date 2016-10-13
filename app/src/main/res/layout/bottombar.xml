@@ -33,7 +33,7 @@
             android:textSize="12sp"
             android:textColor="@color/bb_textLight"
             android:text="DONE"
-            android:layout_marginTop="-10dp" />
+            android:layout_marginTop="-12dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,7 +56,7 @@
             android:textSize="12sp"
             android:textColor="@color/bb_textLight"
             android:text="CANCEL"
-            android:layout_marginTop="-10dp" />
+            android:layout_marginTop="-12dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,6 +79,6 @@
             android:textSize="12sp"
             android:textColor="@color/bb_textLight"
             android:text="VIEW"
-            android:layout_marginTop="-10dp" />
+            android:layout_marginTop="-12dp" />
     </LinearLayout>
 </LinearLayout>
