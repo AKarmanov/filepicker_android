@@ -102,6 +102,7 @@ public class ActionTabFragment extends Fragment {
 
         private List<FilepickerFilter.FilterSetting> options;
         private String filter;
+        private DialogIconResolver dr;
 
         public GridAdapter(Map<String, FilepickerFilter.FilterSetting[]> map, String filterType) {
             options = new ArrayList<>();
@@ -113,6 +114,7 @@ public class ActionTabFragment extends Fragment {
                     this.options.add(options[i]);
                 }
             }
+            dr = new DialogIconResolver();
         }
 
         @Override
@@ -132,27 +134,27 @@ public class ActionTabFragment extends Fragment {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            Button b = new Button(getContext());
+            LinearLayout l;
             if (convertView == null) {
-                b.setText(options.get(position).getOption());
-                b.setBackground(null);
+                l = dr.getLayoutCell(
+                        getActivity(),
+                        options.get(position),
+                        filepicker.getAppContext()
+                );
             }
             else {
-                b = (Button) convertView;
+                l = (LinearLayout) convertView;
             }
-            LinearLayout l = new LinearLayout(getActivity());
 
-            if (options.get(position).isSet()) {
-                b.setTextColor(Color.GREEN);
-            }
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    filepicker.notifyFilterChange(options.get(position), filter);
-                    d.hide();
-                }
-            });
-            return b;
+            l.findViewWithTag(DialogIconResolver.BUTTON_TAG)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            filepicker.notifyFilterChange(options.get(position), filter);
+                            d.hide();
+                        }
+                    });
+            return l;
         }
     }
 }

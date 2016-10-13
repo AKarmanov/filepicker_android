@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.filepicker_android.filepicker.R;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -64,7 +63,7 @@ public class FilepickerFilter {
         });
         layoutOption.put(LIST, new FilterSetting[]{
                 new FilterSetting(LIST, LAYOUT_TYPE_DETAILED, true, "LIST DETAILED", R.string.icon_list_ul),
-                new FilterSetting(LIST, LAYOUT_TYPE_SIMPLE, false, "LIST SIMPLE", R.string.icon_list_ol)
+                new FilterSetting(LIST, LAYOUT_TYPE_SIMPLE, false, "LIST SIMPLE", R.string.icon_bars)
         });
     }
 

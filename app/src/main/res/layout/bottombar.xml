@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textAlignment="center"
-            android:textColor="@color/bb_textIcon"
+            android:textColor="@color/bb_textMedium"
             style="?android:borderlessButtonStyle"
             android:text="@string/icon_check"/>
         <TextView
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textAlignment="center"
-            android:textColor="@color/bb_textIcon"
+            android:textColor="@color/bb_textMedium"
             style="?android:borderlessButtonStyle"
             android:text="@string/icon_close" />
         <TextView
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textAlignment="center"
-            android:textColor="@color/bb_textIcon"
+            android:textColor="@color/bb_textMedium"
             style="?android:borderlessButtonStyle"
             android:text="@string/icon_grid" />
         <TextView
