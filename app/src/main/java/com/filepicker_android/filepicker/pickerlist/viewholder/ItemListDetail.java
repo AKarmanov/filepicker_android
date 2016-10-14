@@ -22,20 +22,8 @@ public class ItemListDetail extends ItemBase {
 
     @Override
     public void setUpView(FilepickerFile item, int position) {
-        super.setUpView(item, position);
-        FilepickerContext appContext = (FilepickerContext) pickerFragment.getAppContext();
-
-        fileName.setText(item.getName());
         fileSizeOrCount.setText(item.getSizeString());
         lastModified.setText(item.getLastModifiedAsString());
-        if (item.isDir()) {
-            fileSizeOrCount.setText(String.format("%s file(s)", item.getChildCount()));
-        }
-        else {
-            icon.setText(R.string.icon_file);
-        }
-
-        icon.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
-        pickButton.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
+        super.setUpView(item, position);
     }
 }

@@ -4,51 +4,67 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:baselineAligned="false">
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="0dp">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="0.1"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/li_icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/icon_folder"/>
-        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="0.8"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="0.1">
+
+                <TextView
+                    android:id="@+id/li_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/icon_folder" />
+
+                <ImageView
+                    android:id="@+id/li_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:src="@mipmap/ic_launcher" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8">
+
                 <TextView
                     android:id="@+id/li_fileName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:textSize="18sp" />
-            </LinearLayout>
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="0.1"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/li_pickButton"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/icon_plus"
-                style="?android:borderlessButtonStyle"/>
-        </RelativeLayout>
+                android:layout_weight="0.1">
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/li_pickButton"
+                    style="?android:borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/icon_plus" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

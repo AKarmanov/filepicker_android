@@ -2,6 +2,7 @@ package com.filepicker_android.filepicker.pickerlist.viewholder;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
@@ -21,17 +22,5 @@ public class ItemGridSimple extends ItemBase {
     @Override
     public void setUpView(FilepickerFile item, int position) {
         super.setUpView(item, position);
-        FilepickerContext appContext = (FilepickerContext) pickerFragment.getAppContext();
-
-        fileName.setText(item.getName());
-        if (item.isDir()) {
-            //
-        }
-        else {
-            icon.setText(R.string.icon_file);
-        }
-
-        icon.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
-        pickButton.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
     }
 }
