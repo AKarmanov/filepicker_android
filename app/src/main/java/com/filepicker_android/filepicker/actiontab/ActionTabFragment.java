@@ -1,7 +1,6 @@
 package com.filepicker_android.filepicker.actiontab;
 
 import android.app.Dialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -101,17 +100,24 @@ public class ActionTabFragment extends Fragment {
     private class GridAdapter extends BaseAdapter {
 
         private List<FilepickerFilter.FilterSetting> options;
-        private String filter;
+        private String filterType;
         private DialogIconResolver dr;
 
         public GridAdapter(Map<String, FilepickerFilter.FilterSetting[]> map, String filterType) {
-            options = new ArrayList<>();
-            filter = filterType;
+            //Populates options list while making sure that element of the same type/option (size,
+            // type etc.) are displayed in a column in the resulting grid
             Set<String> keys = map.keySet();
+            int numOptions = keys.size();
+            int numOfSortOptions = 2;
+            options = new ArrayList<>();
+            fillToCapacity(options, numOptions * numOfSortOptions);
+            this.filterType = filterType;
+            int optionStep = -1;
             for (String key : keys) {
+                optionStep++;
                 FilepickerFilter.FilterSetting[] options = map.get(key);
                 for (int i = 0; i < options.length; i++) {
-                    this.options.add(options[i]);
+                    this.options.set(optionStep + i * numOptions, options[i]);
                 }
             }
             dr = new DialogIconResolver();
@@ -150,11 +156,17 @@ public class ActionTabFragment extends Fragment {
                     .setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            filepicker.notifyFilterChange(options.get(position), filter);
+                            filepicker.notifyFilterChange(options.get(position), filterType);
                             d.hide();
                         }
                     });
             return l;
+        }
+
+        private void fillToCapacity(List<FilepickerFilter.FilterSetting> list, int capacity) {
+            for (int i = 0; i < capacity; i++) {
+                list.add(null);
+            }
         }
     }
 }
