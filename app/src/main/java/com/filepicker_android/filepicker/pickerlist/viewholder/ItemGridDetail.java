@@ -2,6 +2,7 @@ package com.filepicker_android.filepicker.pickerlist.viewholder;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.R;

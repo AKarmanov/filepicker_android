@@ -8,3 +8,7 @@
 - Set picks correctly on fragment transitions (done)
 - Change theme (done)
 - Make layout work correctly
+- Add spinner
+- Add status to be sent back on done/cancel
+- Add image loading if file is image
+- Configure of resize/orientation change
