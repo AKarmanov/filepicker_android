@@ -17,19 +17,4 @@ public class ItemListSimple extends ItemBase {
     public ItemListSimple(View itemView) {
         super(itemView);
     }
-
-    @Override
-    public void setUpView(FilepickerFile item, int position) {
-        FilepickerContext appContext = (FilepickerContext) picksFragment.getAppContext();
-        fileName.setText(item.getName());
-        if (item.isDir()) {
-            //
-        }
-        else {
-            icon.setText(R.string.icon_file);
-        }
-
-        icon.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
-        removeButton.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
-    }
 }

@@ -28,14 +28,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/icon_folder" />
+                    android:text="@string/icon_file_full" />
 
                 <ImageView
                     android:id="@+id/li_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:src="@mipmap/ic_launcher" />
+                    android:gravity="center_horizontal|center_vertical" />
 
             </RelativeLayout>
 

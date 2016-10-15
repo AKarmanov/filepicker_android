@@ -22,14 +22,13 @@
                 android:layout_height="130dp"
                 android:layout_alignParentTop="true"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="@string/icon_folder"
+                android:text="@string/icon_file_full"
                 android:textSize="50sp" />
 
             <ImageView
                 android:id="@+id/li_image"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:src="@mipmap/ic_launcher"
                 android:layout_alignParentTop="true"/>
 
             <TextView

@@ -21,9 +21,9 @@ public class ItemGridDetail extends ItemBase {
     }
 
     @Override
-    public void setUpView(FilepickerFile item, int position) {
+    public void setUpView(FilepickerFile item) {
         fileSizeOrCount.setText(item.getSizeString());
         lastModified.setText(item.getLastModifiedAsString());
-        super.setUpView(item, position);
+        super.setUpView(item);
     }
 }

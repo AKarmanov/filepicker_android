@@ -15,6 +15,7 @@ public class FilepickerContext extends Application {
     private FilepickerCollection collection;
     private Map<String, Typeface> typeFaces;
     private DirectoryExplorer directoryExplorer;
+    private BitmapCache bitmapCache;
 
     public FilepickerContext() {}
 
@@ -38,6 +39,10 @@ public class FilepickerContext extends Application {
         return directoryExplorer;
     }
 
+    public BitmapCache getBitmapCache() {
+        return bitmapCache;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -45,6 +50,8 @@ public class FilepickerContext extends Application {
         typeFaces = new TypeFaces(getApplicationContext()).getTypefaces();
         config = new FilepickerConfig();
         directoryExplorer = new DirectoryExplorer();
+        bitmapCache = new BitmapCache();
+        bitmapCache.setUpCache();
     }
 
     public boolean fileSelectable(FilepickerFile file) {

@@ -104,7 +104,7 @@ public class ActionTabFragment extends Fragment {
         private DialogIconResolver dr;
 
         public GridAdapter(Map<String, FilepickerFilter.FilterSetting[]> map, String filterType) {
-            //Populates options list while making sure that element of the same type/option (size,
+            //Populates options list while making sure that elements of the same type/option (size,
             // type etc.) are displayed in a column in the resulting grid
             Set<String> keys = map.keySet();
             int numOptions = keys.size();

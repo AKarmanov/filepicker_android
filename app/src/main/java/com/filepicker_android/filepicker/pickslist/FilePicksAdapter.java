@@ -74,7 +74,7 @@ public class FilePicksAdapter extends RecyclerView.Adapter<ItemBase>  {
    public void onBindViewHolder(ItemBase holder, int position) {
 //        Log.i("FPA", "On bind view holder");
        FilepickerFile item = list.get(position);
-       holder.setUpView(item, position);
+       holder.setUpView(item);
    }
 
    @Override

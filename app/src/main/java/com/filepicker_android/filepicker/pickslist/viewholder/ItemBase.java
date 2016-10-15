@@ -3,12 +3,15 @@ package com.filepicker_android.filepicker.pickslist.viewholder;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.filepicker_android.filepicker.R;
+import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.pickslist.FilePicksAdapter;
 import com.filepicker_android.filepicker.pickslist.FilePicksFragment;
+import com.filepicker_android.filepicker.viewholder.CommonBase;
 
 /**
  * List item
@@ -16,7 +19,7 @@ import com.filepicker_android.filepicker.pickslist.FilePicksFragment;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class ItemBase extends RecyclerView.ViewHolder  {
+public class ItemBase extends CommonBase {
 
     protected final TextView fileName;
     protected final TextView icon;
@@ -44,7 +47,27 @@ public class ItemBase extends RecyclerView.ViewHolder  {
         this.picksFragment = picksFragment;
     }
 
-    public void setUpView(FilepickerFile item, int position) {}
+    @Override
+    public void setUpView(FilepickerFile item) {
+        FilepickerContext appContext = (FilepickerContext) picksFragment.getAppContext();
+        fileName.setText(item.getName());
+
+        if (item.isDir()) {
+            icon.setText(R.string.icon_folder);
+            imageView.setImageBitmap(null);
+        }
+        else {
+            if (isImage(item)) {
+                loadImage(item);
+            }
+            else {
+                icon.setText(R.string.icon_file);
+            }
+        }
+
+        icon.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
+        removeButton.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
+    }
 
 
     private class removeButtonListener implements Button.OnClickListener {

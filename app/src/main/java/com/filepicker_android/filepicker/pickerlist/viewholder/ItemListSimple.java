@@ -20,7 +20,7 @@ public class ItemListSimple extends ItemBase {
     }
 
     @Override
-    public void setUpView(FilepickerFile item, int position) {
-        super.setUpView(item, position);
+    public void setUpView(FilepickerFile item) {
+        super.setUpView(item);
     }
 }

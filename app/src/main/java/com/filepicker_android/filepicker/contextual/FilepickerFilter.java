@@ -31,16 +31,16 @@ public class FilepickerFilter {
     static {
         sortOption = new HashMap<>();
         sortOption.put(SIZE, new FilterSetting[]{
-                new FilterSetting(SIZE, SORT_TYPE_ASC, false, "SIZE", R.string.icon_sort_num_asc),
-                new FilterSetting(SIZE, SORT_TYPE_DESC, false, "SIZE", R.string.icon_sort_num_desc)
+                new FilterSetting(SIZE, SORT_TYPE_ASC, false, "SIZE", R.string.icon_sort_amount_asc),
+                new FilterSetting(SIZE, SORT_TYPE_DESC, false, "SIZE", R.string.icon_sort_amount_desc)
         });
         sortOption.put(TYPE, new FilterSetting[]{
                 new FilterSetting(TYPE, SORT_TYPE_ASC, false, "TYPE", R.string.icon_sort_asc),
                 new FilterSetting(TYPE, SORT_TYPE_DESC, false, "TYPE", R.string.icon_sort_desc)
         });
         sortOption.put(DATE, new FilterSetting[]{
-                new FilterSetting(DATE, SORT_TYPE_ASC, false, "DATE", R.string.icon_sort_asc),
-                new FilterSetting(DATE, SORT_TYPE_DESC, false, "DATE", R.string.icon_sort_desc)
+                new FilterSetting(DATE, SORT_TYPE_ASC, false, "DATE", R.string.icon_sort_num_asc),
+                new FilterSetting(DATE, SORT_TYPE_DESC, false, "DATE", R.string.icon_sort_num_desc)
         });
         sortOption.put(NAME, new FilterSetting[]{
                 new FilterSetting(NAME, SORT_TYPE_ASC, false, "NAME", R.string.icon_sort_alpha_asc),

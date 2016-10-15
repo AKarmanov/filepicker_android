@@ -17,6 +17,7 @@ import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.pickerlist.FilePickerAdapter;
 import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
+import com.filepicker_android.filepicker.viewholder.CommonBase;
 
 /**
  * List item
@@ -24,16 +25,13 @@ import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickListener {
+public class ItemBase extends CommonBase implements  View.OnClickListener {
 
     protected final TextView fileName;
     protected final TextView icon;
     protected final TextView fileSizeOrCount;
     protected final TextView lastModified;
     protected final Button pickButton;
-    public final ImageView imageView;
-
-    protected FilePickerFragment pickerFragment;
 
     public ItemBase(View itemView) {
         super(itemView);
@@ -43,7 +41,6 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
         this.fileSizeOrCount = (TextView) itemView.findViewById(R.id.li_fileSizeOrCount);
         this.pickButton = (Button) itemView.findViewById(R.id.li_pickButton);
         this.pickButton.setOnClickListener(new PickButtonListener());
-        imageView = (ImageView) itemView.findViewById(R.id.li_image);
         itemView.setOnClickListener(this);
     }
 
@@ -67,11 +64,8 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
         return fileSizeOrCount;
     }
 
-    public void setPickerFragment(FilePickerFragment pickerFragment) {
-        this.pickerFragment = pickerFragment;
-    }
-
-    public void setUpView(FilepickerFile item, int position) {
+    @Override
+    public void setUpView(FilepickerFile item) {
         FilepickerContext appContext = (FilepickerContext) pickerFragment.getAppContext();
 
         fileName.setText(item.getName());
@@ -83,13 +77,15 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
         }
 
         if (item.isDir()) {
+            icon.setText(R.string.icon_folder);
+            imageView.setImageBitmap(null);
             if (fileSizeOrCount != null) {
                 fileSizeOrCount.setText(String.format("%s file(s)", item.getChildCount()));
             }
         }
         else {
             if (isImage(item)) {
-                loadImage(imageView, item);
+                loadImage(item);
             }
             else {
                 icon.setText(R.string.icon_file);
@@ -97,15 +93,6 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
         }
         icon.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
         pickButton.setTypeface(appContext.getTypeFaces().get("fontAwesome"));
-    }
-
-    public void loadImage(ImageView iv, FilepickerFile item) {
-        new LoadImageTask(iv).execute(item);
-    }
-
-    public boolean isImage(FilepickerFile item) {
-        String type = item.getType();
-        return FilepickerConfig.JPG.equals(type) || FilepickerConfig.PNG.equals(type);
     }
 
     @Override
@@ -125,26 +112,6 @@ public class ItemBase extends RecyclerView.ViewHolder  implements  View.OnClickL
                 adapter.notifyItemRemoved(position);
                 adapter.notifyItemRangeChanged(position, adapter.getItemCount());
             }
-        }
-    }
-
-    private class LoadImageTask extends AsyncTask<FilepickerFile, Integer, Bitmap> {
-
-        private ImageView imageViewref;
-
-        public LoadImageTask (ImageView imageView) {
-            this.imageViewref = imageView;
-        }
-
-        @Override
-        protected Bitmap doInBackground(FilepickerFile... filepickerFiles) {
-            return BitmapFactory.decodeFile(filepickerFiles[0].getPath());
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            imageViewref.setImageBitmap(bitmap);
         }
     }
 }

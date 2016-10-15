@@ -6,19 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.filepicker_android.filepicker.Filepicker;
-import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.contextual.FilepickerFilter;
-import com.filepicker_android.filepicker.pickerlist.viewholder.ItemBase;
 import com.filepicker_android.filepicker.pickerlist.viewholder.ItemGridDetail;
 import com.filepicker_android.filepicker.pickerlist.viewholder.ItemGridSimple;
 import com.filepicker_android.filepicker.pickerlist.viewholder.ItemListDetail;
 import com.filepicker_android.filepicker.pickerlist.viewholder.ItemListSimple;
+import com.filepicker_android.filepicker.viewholder.CommonBase;
 
 import java.util.List;
 
@@ -28,7 +25,7 @@ import java.util.List;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class FilePickerAdapter extends RecyclerView.Adapter<ItemBase>  {
+public class FilePickerAdapter extends RecyclerView.Adapter<CommonBase>  {
 
     private List<FilepickerFile> list;
     private FilepickerContext appContext;
@@ -43,11 +40,11 @@ public class FilePickerAdapter extends RecyclerView.Adapter<ItemBase>  {
     }
 
     @Override
-    public ItemBase onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CommonBase onCreateViewHolder(ViewGroup parent, int viewType) {
 //        Log.i("FPA", "Created view holder");
         FilepickerFilter.FilterSetting setting = FilepickerFilter.getLayoutOption();
         View v;
-        ItemBase item;
+        CommonBase item;
         switch(setting.getOption()) {
             case FilepickerFilter.GRID :
                 if (setting.getType().equals(FilepickerFilter.LAYOUT_TYPE_DETAILED)) {
@@ -90,10 +87,10 @@ public class FilePickerAdapter extends RecyclerView.Adapter<ItemBase>  {
     
 
     @Override
-    public void onBindViewHolder(ItemBase holder, int position) {
+    public void onBindViewHolder(CommonBase holder, int position) {
 //        Log.i("FPA", "On bind view holder");
         FilepickerFile item = list.get(position);
-        holder.setUpView(item, position);
+        holder.setUpView(item);
     }
 
     @Override
