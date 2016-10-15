@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.filepicker_android.filepicker.contextual.DirectoryExplorer;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.contextual.FilepickerFilter;
 
+import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +42,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
                                                             HostFragmentInterface {
 
     private static final String SAVED_PATHS = "paths";
+    private static final String BACK_PATH = "backPath";
     private DirectoryExplorer de;
     private List<FilepickerFile> files;
     private FilePickerAdapter adapter;
@@ -70,6 +73,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putStringArrayList(SAVED_PATHS, (ArrayList<String>) de.getVisitedPaths());
+        outState.putString(BACK_PATH, de.getBackPath());
         super.onSaveInstanceState(outState);
     }
 
@@ -112,6 +116,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
             TextView tv = new TextView(appContext);
             tv.setText(" / ");
             tv.setTextColor(Color.DKGRAY);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f);
             v.addView(tv);
 
             Button b = new Button(appContext);
@@ -119,6 +124,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
             String p = path.substring(index);
             b.setText(p.equals("0") ? "Home" : p);
             b.setTextColor(Color.DKGRAY);
+            b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f);
             b.setBackgroundResource(R.drawable.breadcrumb_button);
             b.setOnClickListener(new BreadCrumbListener(path, de, this));
             v.addView(b);

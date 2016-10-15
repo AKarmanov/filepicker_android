@@ -45,8 +45,10 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
             appContext.setConfig(config);
         }
         setContentView(R.layout.activity_filepicker);
-        transitionFragment(PICK_FRAGMENT);
-        addActionBar();
+        if (savedInstanceState == null) {
+            transitionFragment(PICK_FRAGMENT);
+            addActionBar();
+        }
     }
 
     @Override
