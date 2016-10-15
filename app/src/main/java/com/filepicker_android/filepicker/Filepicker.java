@@ -1,6 +1,7 @@
 package com.filepicker_android.filepicker;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,7 +49,6 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         addActionBar();
     }
 
-
     @Override
     public void onBackPressed() {
         DirectoryExplorer de = appContext.getDirectoryExplorer();
@@ -88,10 +88,6 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         return true;
     }
 
-    public FilepickerContext getAppContext() {
-        return appContext;
-    }
-
     @Override
     public boolean addRemoveItem(List<FilepickerFile> files, boolean add, int position) {
         Log.d("AddRemoveInfo: ", Boolean.toString(add) +", "+ Integer.toString(position) +", "+ Integer.toString(files.size()));
@@ -113,24 +109,6 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
             fc.removeFile(files.get(position));
             menu.getItem(0).setTitle(String.format(Locale.ENGLISH, "%d Pick(s)", fc.getCollectionSize()));
             return true;
-        }
-    }
-
-    public void transitionFragment(int switchCase) {
-        FragmentTransaction ft;
-        switch(switchCase) {
-            case PICK_FRAGMENT:
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.add(R.id.filesFragment, new FilePickerFragment());
-                ft.addToBackStack("picker-fragment");
-                ft.commit();
-                break;
-            case PICKS_FRAGMENT:
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.filesFragment, new FilePicksFragment());
-                ft.addToBackStack("picks-fragment");
-                ft.commit();
-                break;
         }
     }
 
@@ -161,6 +139,28 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
                         .sortList();
                 break;
         }
+    }
+
+    public void transitionFragment(int switchCase) {
+        FragmentTransaction ft;
+        switch(switchCase) {
+            case PICK_FRAGMENT:
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.add(R.id.filesFragment, new FilePickerFragment());
+                ft.addToBackStack("picker-fragment");
+                ft.commit();
+                break;
+            case PICKS_FRAGMENT:
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.filesFragment, new FilePicksFragment());
+                ft.addToBackStack("picks-fragment");
+                ft.commit();
+                break;
+        }
+    }
+
+    public FilepickerContext getAppContext() {
+        return appContext;
     }
 
     private void addActionBar() {

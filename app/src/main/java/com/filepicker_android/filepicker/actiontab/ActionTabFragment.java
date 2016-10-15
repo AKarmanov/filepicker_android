@@ -157,7 +157,7 @@ public class ActionTabFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             filepicker.notifyFilterChange(options.get(position), filterType);
-                            d.hide();
+                            d.dismiss();
                         }
                     });
             return l;

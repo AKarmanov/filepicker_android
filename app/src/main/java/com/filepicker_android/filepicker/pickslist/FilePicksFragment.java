@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.filepicker_android.filepicker.Filepicker;
 import com.filepicker_android.filepicker.FragmentFilterInterface;
+import com.filepicker_android.filepicker.HostFragmentInterface;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.RecyclerLayoutUtils;
 import com.filepicker_android.filepicker.contextual.DirectoryExplorer;
@@ -36,7 +37,8 @@ import java.util.List;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class FilePicksFragment extends Fragment implements FragmentFilterInterface {
+public class FilePicksFragment extends Fragment implements FragmentFilterInterface,
+                                                           HostFragmentInterface {
 
     private List<FilepickerFile> files;
     private FilePicksAdapter adapter;

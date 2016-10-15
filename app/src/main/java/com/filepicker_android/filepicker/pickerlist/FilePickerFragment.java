@@ -1,6 +1,7 @@
 package com.filepicker_android.filepicker.pickerlist;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.filepicker_android.filepicker.Filepicker;
 import com.filepicker_android.filepicker.FragmentFilterInterface;
+import com.filepicker_android.filepicker.HostFragmentInterface;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.RecyclerLayoutUtils;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
@@ -34,7 +36,8 @@ import java.util.List;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class FilePickerFragment extends Fragment implements FragmentFilterInterface {
+public class FilePickerFragment extends Fragment implements FragmentFilterInterface,
+                                                            HostFragmentInterface {
 
     private static final String SAVED_PATHS = "paths";
     private DirectoryExplorer de;
@@ -49,17 +52,14 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.i("****", "Attached");
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("****", "Created");
         filepicker = (Filepicker) getActivity();
         appContext = getActivity().getApplicationContext();
         de = ((FilepickerContext)appContext).getDirectoryExplorer();
-        //TODO save restore layout config
         if (savedInstanceState != null) {
             de.setVisitedPaths(savedInstanceState.getStringArrayList(SAVED_PATHS));
         }
@@ -71,17 +71,19 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
     public void onSaveInstanceState(Bundle outState) {
         outState.putStringArrayList(SAVED_PATHS, (ArrayList<String>) de.getVisitedPaths());
         super.onSaveInstanceState(outState);
-        Log.i("****", "State saved");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.filepicker_container, container, false);
+        View filePickerContainer = container.findViewById(R.id.view);
+        View v;
+        if (filePickerContainer != null) {
+            container.removeView(filePickerContainer);
+        }
+        v = inflater.inflate(R.layout.filepicker_container, container, false);
         recycler = (RecyclerView) v.findViewById(R.id.recycler);
         configureLayout();
-//        navigateToPath(de.getLastPath());
-        Log.i("****", "View created");
         setHasOptionsMenu(true);
         filepicker.setTitle(((FilepickerContext)appContext).getConfig().getTitle());
         return v;
@@ -90,7 +92,6 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("****", "Resumed");
         recycler.setAdapter(adapter);
     }
 
@@ -115,7 +116,8 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
 
             Button b = new Button(appContext);
             int index = path.lastIndexOf("/") == 0 ? 0 : path.lastIndexOf("/") + 1;
-            b.setText(path.substring(index));
+            String p = path.substring(index);
+            b.setText(p.equals("0") ? "Home" : p);
             b.setTextColor(Color.DKGRAY);
             b.setBackgroundResource(R.drawable.breadcrumb_button);
             b.setOnClickListener(new BreadCrumbListener(path, de, this));
@@ -127,8 +129,10 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
 
         @Override
         protected List<FilepickerFile> doInBackground(String... paths) {
-            Log.i("Path", paths[0] == null ? "null": paths[0]);
-            return de.getFiles(paths[0]);
+            return de.getFiles(
+                    paths[0],
+                    ((FilepickerContext)appContext).getCollection().getPicksPaths()
+            );
         }
 
         @Override
@@ -144,7 +148,6 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
                 files.addAll(filepickerFiles);
                 FilepickerFilter.sort(files);
                 adapter.notifyDataSetChanged();
-                System.out.println(files.size() +"!--!"+ adapter.getItemCount());
             }
             buildBreadCrumbs();
         }
@@ -169,7 +172,6 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
     public void configureLayout() {
         rlu.changeRecyclerLayoutManager(getActivity(), recycler, layoutManager);
         if (adapter != null) {
-            adapter.onDetachedFromRecyclerView(recycler);
             adapter = new FilePickerAdapter(getObject());
             recycler.setAdapter(adapter);
         }

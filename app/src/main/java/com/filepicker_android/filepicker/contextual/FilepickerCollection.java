@@ -18,9 +18,7 @@ public class FilepickerCollection {
     }
 
     public void addFile(FilepickerFile file) {
-        if (!filePicked(file)) {
-            picks.add(file);
-        }
+        picks.add(file);
     }
 
     public void removeFile(FilepickerFile file) {
@@ -43,13 +41,11 @@ public class FilepickerCollection {
         return new ArrayList<>(picks);
     }
 
-    public boolean filePicked(FilepickerFile file) {
-        for (int i = 0; i < picks.size(); i++) {
-            if (picks.get(i).getPath().equals(file.getPath())) {
-                Log.i("pick-", picks.get(i).getPath() + " --- " + file.getPath());
-                return true;
-            }
+    public List<String> getPicksPaths() {
+        List<String> paths = new ArrayList<>();
+        for (FilepickerFile f : picks) {
+            paths.add(f.getPath());
         }
-        return false;
+        return paths;
     }
 }

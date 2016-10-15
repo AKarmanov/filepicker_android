@@ -25,7 +25,7 @@ import java.util.List;
  * @author alexander karmanov on 2016-10-08.
  */
 
-public class FilePickerAdapter extends RecyclerView.Adapter<CommonBase>  {
+public class FilePickerAdapter extends RecyclerView.Adapter<CommonBase> {
 
     private List<FilepickerFile> list;
     private FilepickerContext appContext;
@@ -80,7 +80,7 @@ public class FilePickerAdapter extends RecyclerView.Adapter<CommonBase>  {
                 item = new ItemListDetail(v);
                 Log.i("Case", "Default");
         }
-        item.setPickerFragment(pickerFragment);
+        item.setHostFragment(pickerFragment);
         return item;
     }
 

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.filepicker_android.filepicker.HostFragmentInterface;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerConfig;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
@@ -32,6 +33,7 @@ public class ItemBase extends CommonBase implements  View.OnClickListener {
     protected final TextView fileSizeOrCount;
     protected final TextView lastModified;
     protected final Button pickButton;
+    private FilePickerFragment pickerFragment;
 
     public ItemBase(View itemView) {
         super(itemView);
@@ -65,8 +67,14 @@ public class ItemBase extends CommonBase implements  View.OnClickListener {
     }
 
     @Override
+    public void setHostFragment(HostFragmentInterface hostFragment) {
+        super.setHostFragment(hostFragment);
+        pickerFragment = (FilePickerFragment) hostFragment;
+    }
+
+    @Override
     public void setUpView(FilepickerFile item) {
-        FilepickerContext appContext = (FilepickerContext) pickerFragment.getAppContext();
+        FilepickerContext appContext = (FilepickerContext) hostFragment.getAppContext();
 
         fileName.setText(item.getName());
         if (!appContext.fileSelectable(item)) {

@@ -64,7 +64,7 @@ public class FilePicksAdapter extends RecyclerView.Adapter<ItemBase>  {
                item = new ItemListSimple(v);
                Log.i("Case", "Picks Default");
        }
-       item.setPicksFragment(picksFragment);
+       item.setHostFragment(picksFragment);
        return item;
    }
 

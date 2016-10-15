@@ -1,11 +1,10 @@
 package com.filepicker_android.filepicker.pickslist.viewholder;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.filepicker_android.filepicker.HostFragmentInterface;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
@@ -43,13 +42,15 @@ public class ItemBase extends CommonBase {
         return removeButton;
     }
 
-    public void setPicksFragment(FilePicksFragment picksFragment) {
-        this.picksFragment = picksFragment;
+    @Override
+    public void setHostFragment(HostFragmentInterface hostFragment) {
+        super.setHostFragment(hostFragment);
+        picksFragment = (FilePicksFragment) hostFragment;
     }
 
     @Override
     public void setUpView(FilepickerFile item) {
-        FilepickerContext appContext = (FilepickerContext) picksFragment.getAppContext();
+        FilepickerContext appContext = (FilepickerContext) hostFragment.getAppContext();
         fileName.setText(item.getName());
 
         if (item.isDir()) {

@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.filepicker_android.filepicker.HostFragmentInterface;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerConfig;
 import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
-import com.filepicker_android.filepicker.pickerlist.FilePickerFragment;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,7 +22,7 @@ import java.io.ByteArrayOutputStream;
 
 public class CommonBase extends RecyclerView.ViewHolder {
 
-    protected FilePickerFragment pickerFragment;
+    protected HostFragmentInterface hostFragment;
 
     protected final ImageView imageView;
 
@@ -31,14 +31,14 @@ public class CommonBase extends RecyclerView.ViewHolder {
         this.imageView = (ImageView) itemView.findViewById(R.id.li_image);
     }
 
-    public void setPickerFragment(FilePickerFragment pickerFragment) {
-        this.pickerFragment = pickerFragment;
+    public void setHostFragment(HostFragmentInterface hostFragment) {
+        this.hostFragment = hostFragment;
     }
 
     public void setUpView(FilepickerFile item) {}
 
     protected void loadImage(FilepickerFile item) {
-        Bitmap map = ((FilepickerContext)pickerFragment.getAppContext())
+        Bitmap map = ((FilepickerContext)hostFragment.getAppContext())
                 .getBitmapCache()
                 .getBitmapFromCache(item.getPath());
         if (map != null) {
@@ -62,12 +62,12 @@ public class CommonBase extends RecyclerView.ViewHolder {
             Bitmap bm = BitmapFactory.decodeFile(path);
             Bitmap mutableBitmap = getResizedBitmap(
                     bm,
-                    ((FilepickerContext)pickerFragment.getAppContext()).getConfig().getMaxImageSize()
+                    ((FilepickerContext)hostFragment.getAppContext()).getConfig().getMaxImageSize()
             );
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             mutableBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             Bitmap map = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
-            ((FilepickerContext)pickerFragment.getAppContext()).getBitmapCache().addBitmapToCache(path, map);
+            ((FilepickerContext)hostFragment.getAppContext()).getBitmapCache().addBitmapToCache(path, map);
             return map;
         }
 

@@ -25,7 +25,7 @@ public class DirectoryExplorer {
         visitedPaths.add(getInitialPath());
     }
 
-    public List<FilepickerFile> getFiles(String path) {
+    public List<FilepickerFile> getFiles(String path, List<String> exceptPaths) {
         if (!visitedPaths.contains(path)) {
             visitedPaths.add(path);
         }
@@ -33,17 +33,19 @@ public class DirectoryExplorer {
         List<FilepickerFile> list = new ArrayList<>();
         for (int i = 0; files!= null && i < files.length; i++) {
             File file = files[i];
-            FilepickerFile f = new FilepickerFile();
-            f.setName(file.getName());
-            f.setPath(file.getPath());
-            f.setType(null);
-            f.setSize(file.length());
-            f.setLastModified(file.lastModified());
-            f.setDir(file.isDirectory());
-            if (f.isDir()) {
-                f.setChildCount(file.listFiles().length);
+            if (!exceptPaths.contains(file.getPath())) {
+                FilepickerFile f = new FilepickerFile();
+                f.setName(file.getName());
+                f.setPath(file.getPath());
+                f.setType(null);
+                f.setSize(file.length());
+                f.setLastModified(file.lastModified());
+                f.setDir(file.isDirectory());
+                if (f.isDir()) {
+                    f.setChildCount(file.listFiles().length);
+                }
+                list.add(f);
             }
-            list.add(f);
         }
         getMimeTypesForFiles(list);
         return list;
