@@ -25,6 +25,9 @@ import java.util.Locale;
 
 public class Filepicker extends AppCompatActivity implements FragmentToActivityInterface {
 
+    public static final int RESULT_OK = 200;
+    public static final int RESULT_CANCEL = 400;
+
     public static final int PICK_FRAGMENT = 0;
     public static final int PICKS_FRAGMENT = 1;
 
@@ -169,17 +172,20 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
     private void goBackToCallingActivity(boolean sendPicks) {
         Log.i("Notifying: ", "DONE");
         ArrayList<FilepickerFile> list;
+        int result;
         if (sendPicks) {
+            result = RESULT_OK;
             list = appContext
                     .getCollection()
                     .copyPicks();
         }
         else {
+            result = RESULT_CANCEL;
             list = new ArrayList<>();
         }
         Intent backToActivity = new Intent();
         backToActivity.putParcelableArrayListExtra("data", list);
-        setResult(1, backToActivity);
+        setResult(result, backToActivity);
         finish();
     }
 }

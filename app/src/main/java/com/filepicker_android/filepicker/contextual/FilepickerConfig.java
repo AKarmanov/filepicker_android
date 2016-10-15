@@ -15,13 +15,8 @@ public class FilepickerConfig implements Parcelable {
 
     public static final String EXTRA_CONFIG = "extraConfig";
 
-    public static final String EXTRA_PICK_TYPES = "pickTypes";
-    public static final String EXTRA_MAX_FILES = "maxFiles";
-    public static final String EXTRA_VIEW_MODE = "viewMode"; //List or grid
-
     public static final String ANY = "any";
     public static final String FOLDER = "folder";
-    //TODO replace to mime type
     public static final String PDF = "application/pdf";
     public static final String JPG = "image/jpeg";
     public static final String PNG = "image/png";
@@ -43,6 +38,7 @@ public class FilepickerConfig implements Parcelable {
     private ArrayList<String> dontPickTypes = new ArrayList<>();
 
     private int maxFiles = 10;
+    private int maxImageSize = 300;
     private String viewMode = VIEW_MODE_LIST;
     private String title = "Filepicker";
 
@@ -68,6 +64,14 @@ public class FilepickerConfig implements Parcelable {
 
     public void setMaxFiles(int maxFiles) {
         this.maxFiles = maxFiles;
+    }
+
+    public int getMaxImageSize() {
+        return maxImageSize;
+    }
+
+    public void setMaxImageSize(int maxImageSize) {
+        this.maxImageSize = maxImageSize;
     }
 
     public String getViewMode() {
@@ -98,14 +102,18 @@ public class FilepickerConfig implements Parcelable {
         dest.writeStringList(this.pickTypes);
         dest.writeStringList(this.dontPickTypes);
         dest.writeInt(this.maxFiles);
+        dest.writeInt(this.maxImageSize);
         dest.writeString(this.viewMode);
+        dest.writeString(this.title);
     }
 
     protected FilepickerConfig(Parcel in) {
         this.pickTypes = in.createStringArrayList();
         this.dontPickTypes = in.createStringArrayList();
         this.maxFiles = in.readInt();
+        this.maxImageSize = in.readInt();
         this.viewMode = in.readString();
+        this.title = in.readString();
     }
 
     public static final Creator<FilepickerConfig> CREATOR = new Creator<FilepickerConfig>() {

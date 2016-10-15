@@ -1,14 +1,16 @@
 - Don't show files that don't match specified types (done)
-- Do not show picked files
 - Complete sorting switch (done)
 - Replace file count and size with one text view (done)
-- Add a list of file types and determine icon correctly
+- Add a list of file types and determine icon correctly (done)
 - Add icons to view dialog (done)
 - Add proper identification of bottom action bar (done)
 - Set picks correctly on fragment transitions (done)
 - Change theme (done)
 - Make layout work correctly
 - Add spinner
-- Add status to be sent back on done/cancel
-- Add image loading if file is image
+- Add status to be sent back on done/cancel (done)
+- Add image loading if file is image (done) -> (configure size based on devices width)
+
+- Specify initial path/select initial path, properly name home
+- Do not redisplay picked items
 - Configure of resize/orientation change

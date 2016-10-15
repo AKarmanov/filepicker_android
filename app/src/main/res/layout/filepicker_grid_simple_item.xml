@@ -29,7 +29,8 @@
                 android:id="@+id/li_image"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:layout_alignParentTop="true"/>
+                android:layout_alignParentTop="true"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/li_fileName"
@@ -46,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="right|center_vertical"
+                android:textColor="@color/bb_textMedium"
                 android:text="@string/icon_plus" />
 
         </RelativeLayout>

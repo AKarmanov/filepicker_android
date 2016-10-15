@@ -64,11 +64,11 @@ public class FilepickerContext extends Application {
             return false;
         }
 
-        if (config.getPickTypes().contains(type) && !config.getDontPickTypes().contains(type)) {
-            return true;
+        if (config.getDontPickTypes().contains(type)) {
+            return false;
         }
         else {
-            return false;
+            return true;
         }
     }
 }

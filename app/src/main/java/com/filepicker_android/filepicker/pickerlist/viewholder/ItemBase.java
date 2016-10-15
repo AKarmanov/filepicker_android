@@ -78,7 +78,7 @@ public class ItemBase extends CommonBase implements  View.OnClickListener {
 
         if (item.isDir()) {
             icon.setText(R.string.icon_folder);
-            imageView.setImageBitmap(null);
+            imageView.setVisibility(View.INVISIBLE);
             if (fileSizeOrCount != null) {
                 fileSizeOrCount.setText(String.format("%s file(s)", item.getChildCount()));
             }
@@ -86,6 +86,7 @@ public class ItemBase extends CommonBase implements  View.OnClickListener {
         else {
             if (isImage(item)) {
                 loadImage(item);
+                imageView.setVisibility(View.VISIBLE);
             }
             else {
                 icon.setText(R.string.icon_file);

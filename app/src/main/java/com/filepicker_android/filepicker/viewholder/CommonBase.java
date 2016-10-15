@@ -60,8 +60,12 @@ public class CommonBase extends RecyclerView.ViewHolder {
         protected Bitmap doInBackground(FilepickerFile... filepickerFiles) {
             String path = filepickerFiles[0].getPath();
             Bitmap bm = BitmapFactory.decodeFile(path);
+            Bitmap mutableBitmap = getResizedBitmap(
+                    bm,
+                    ((FilepickerContext)pickerFragment.getAppContext()).getConfig().getMaxImageSize()
+            );
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.JPEG, 10, out);
+            mutableBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             Bitmap map = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
             ((FilepickerContext)pickerFragment.getAppContext()).getBitmapCache().addBitmapToCache(path, map);
             return map;
@@ -71,6 +75,21 @@ public class CommonBase extends RecyclerView.ViewHolder {
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
             imageView.setImageBitmap(bitmap);
+        }
+
+        private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+            int width = image.getWidth();
+            int height = image.getHeight();
+
+            float bitmapRatio = (float) width / (float) height;
+            if (bitmapRatio > 1) {
+                width = maxSize;
+                height = (int) (width / bitmapRatio);
+            } else {
+                height = maxSize;
+                width = (int) (height * bitmapRatio);
+            }
+            return Bitmap.createScaledBitmap(image, width, height, true);
         }
     }
 }
