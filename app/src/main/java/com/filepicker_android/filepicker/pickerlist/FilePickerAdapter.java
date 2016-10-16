@@ -51,13 +51,13 @@ public class FilePickerAdapter extends RecyclerView.Adapter<CommonBase> {
                     v = LayoutInflater.from(parent.getContext())
                             .inflate(ItemGridDetail.layoutId, parent, false);
                     item = new ItemGridDetail(v);
-                    Log.i("Case", "Grid detail");
+//                    Log.i("Case", "Grid detail");
                 }
                 else {
                     v = LayoutInflater.from(parent.getContext())
                             .inflate(ItemGridSimple.layoutId, parent, false);
                     item = new ItemGridSimple(v);
-                    Log.i("Case", "Grid simple");
+//                    Log.i("Case", "Grid simple");
                 }
                 break;
             case FilepickerFilter.LIST :
@@ -65,20 +65,20 @@ public class FilePickerAdapter extends RecyclerView.Adapter<CommonBase> {
                     v = LayoutInflater.from(parent.getContext())
                             .inflate(ItemListDetail.layoutId, parent, false);
                     item = new ItemListDetail(v);
-                    Log.i("Case", "List detail");
+//                    Log.i("Case", "List detail");
                 }
                 else {
                     v = LayoutInflater.from(parent.getContext())
                             .inflate(ItemListSimple.layoutId, parent, false);
                     item = new ItemListSimple(v);
-                    Log.i("Case", "List simple");
+//                    Log.i("Case", "List simple");
                 }
                 break;
             default :
                 v = LayoutInflater.from(parent.getContext())
                         .inflate(ItemListDetail.layoutId, parent, false);
                 item = new ItemListDetail(v);
-                Log.i("Case", "Default");
+//                Log.i("Case", "Default");
         }
         item.setHostFragment(pickerFragment);
         return item;

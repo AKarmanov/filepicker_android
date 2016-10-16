@@ -1,7 +1,5 @@
 package com.filepicker_android.filepicker.contextual;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
