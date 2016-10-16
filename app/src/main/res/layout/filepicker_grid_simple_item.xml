@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_height"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/card_margin"
+        android:layout_marginBottom="@dimen/card_margin">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/li_icon"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_image"
+                android:layout_alignParentTop="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/icon_file_full"
+                android:textSize="@dimen/xxl_text" />
+
+            <ImageView
+                android:id="@+id/li_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_image"
+                android:layout_alignParentTop="true"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/li_fileName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_title"
+                android:layout_below="@+id/li_icon"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/regular_text" />
+
+            <Button
+                android:id="@+id/li_pickButton"
+                style="?android:borderlessButtonStyle"
+                android:layout_below="@+id/li_fileName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_simple_button_height"
+                android:gravity="right|center_vertical"
+                android:textColor="@color/bb_textMedium"
+                android:text="@string/icon_plus" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

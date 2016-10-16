@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Filepicker</string>
+
+    <!--Icons-->
+    <string name="icon_heart">&#xf004;</string>
+    <string name="icon_folder">&#xf07b;</string>
+    <string name="icon_pdf">&#xf1c1;</string>
+    <string name="icon_image">&#xf03e;</string>
+    <string name="icon_file">&#xf016;</string>
+    <string name="icon_file_full">&#xf15b;</string>
+    <string name="icon_trash">&#xf1f8;</string>
+    <string name="icon_plus">&#xf067;</string>
+    <string name="icon_minus">&#xf068;</string>
+    <string name="icon_excel">&#xf1c3;</string>
+    <string name="icon_archive">&#xf1c6;</string>
+    <string name="icon_powerpoint">&#xf1c4;</string>
+    <string name="icon_code">&#xf1c9;</string>
+    <string name="icon_check">&#xf00c;</string>
+    <string name="icon_close">&#xf00d;</string>
+    <string name="icon_grid">&#xf00a;</string>
+    <string name="icon_sort_alpha_asc">&#xf15d;</string>
+    <string name="icon_sort_alpha_desc">&#xf15e;</string>
+    <string name="icon_sort_num_asc">&#xf162;</string>
+    <string name="icon_sort_num_desc">&#xf163;</string>
+    <string name="icon_sort_asc">&#xf0de;</string>
+    <string name="icon_sort_desc">&#xf0dd;</string>
+    <string name="icon_sort_amount_asc">&#xf160;</string>
+    <string name="icon_sort_amount_desc">&#xf161;</string>
+    <string name="icon_list_ol">&#xf0cb;</string>
+    <string name="icon_list_ul">&#xf03a;</string>
+    <string name="icon_bars">&#xf0c9;</string>
+
+    <!--Text-->
+    <string name="action_bar_done">DONE</string>
+    <string name="action_bar_cancel">CANCEL</string>
+    <string name="action_bar_view">VIEW</string>
+
+    <string name="filter_layout">--------LAYOUT--------</string>
+    <string name="filter_sort">--------SORT--------</string>
+
+
+</resources>
