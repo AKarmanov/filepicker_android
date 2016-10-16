@@ -10,7 +10,7 @@ basic information such as path, name ect.
 
 To use this picker in you project you need to:
 
-* Import this repo alongside you project as a module (File -> New -> Module)
+* Import this repo alongside you project as a module (File -> New -> Import Module)
 * Include the module is settings.gradle: include ":app", ":\<module name\>"
 * In your build.gradle add dependency like so: compile project(":\<module name>\")
 
