@@ -17,4 +17,10 @@ public class ItemGridSimple extends ItemBase {
     public ItemGridSimple(View itemView) {
         super(itemView);
     }
+
+    @Override
+    public void setUpView(FilepickerFile item) {
+        super.setUpView(item);
+        fileName.setText(getAdjustedTitle(item.getName()));
+    }
 }

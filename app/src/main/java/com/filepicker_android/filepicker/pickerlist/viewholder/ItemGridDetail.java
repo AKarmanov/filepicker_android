@@ -25,5 +25,6 @@ public class ItemGridDetail extends ItemBase {
         fileSizeOrCount.setText(item.getSizeString());
         lastModified.setText(item.getLastModifiedAsString());
         super.setUpView(item);
+        fileName.setText(getAdjustedTitle(item.getName()));
     }
 }

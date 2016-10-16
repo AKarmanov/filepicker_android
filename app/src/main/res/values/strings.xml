@@ -30,4 +30,13 @@
     <string name="icon_list_ul">&#xf03a;</string>
     <string name="icon_bars">&#xf0c9;</string>
 
+    <!--Text-->
+    <string name="action_bar_done">DONE</string>
+    <string name="action_bar_cancel">CANCEL</string>
+    <string name="action_bar_view">VIEW</string>
+
+    <string name="filter_layout">--------LAYOUT--------</string>
+    <string name="filter_sort">--------SORT--------</string>
+
+
 </resources>

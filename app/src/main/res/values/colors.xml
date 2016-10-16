@@ -9,4 +9,7 @@
     <color name="bb_textLight">#999999</color>
     <color name="bb_textMedium">#777777</color>
     <color name="bb_textDark">#444444</color>
+
+
+    <color name="action_bar_bg">#ffffff</color>
 </resources>

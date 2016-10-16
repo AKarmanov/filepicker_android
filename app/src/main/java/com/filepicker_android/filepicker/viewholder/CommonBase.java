@@ -37,6 +37,16 @@ public class CommonBase extends RecyclerView.ViewHolder {
 
     public void setUpView(FilepickerFile item) {}
 
+    public String getAdjustedTitle(String title) {
+        int len = title.length();
+        if (len > 17) {
+            String newTitle = title.substring(0, 10);
+            return newTitle.concat("...").concat(title.substring(len-5, len));
+
+        }
+        return title;
+    }
+
     protected void loadImage(FilepickerFile item) {
         Bitmap map = ((FilepickerContext)hostFragment.getAppContext())
                 .getBitmapCache()

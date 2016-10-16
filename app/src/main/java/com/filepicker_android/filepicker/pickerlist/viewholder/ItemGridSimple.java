@@ -22,5 +22,6 @@ public class ItemGridSimple extends ItemBase {
     @Override
     public void setUpView(FilepickerFile item) {
         super.setUpView(item);
+        fileName.setText(getAdjustedTitle(item.getName()));
     }
 }

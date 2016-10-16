@@ -7,13 +7,13 @@
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/list_detailed_height"
         android:layout_gravity="center"
         card_view:cardCornerRadius="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="1">
@@ -48,7 +48,7 @@
                     android:id="@+id/li_fileName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/regular_text" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,13 +61,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/small_text" />
 
                     <TextView
                         android:id="@+id/li_lastModified"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/small_text" />
                 </LinearLayout>
             </RelativeLayout>
 

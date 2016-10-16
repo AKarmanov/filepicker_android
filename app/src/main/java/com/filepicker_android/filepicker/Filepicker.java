@@ -29,8 +29,8 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
     public static final int RESULT_OK = 200;
     public static final int RESULT_CANCEL = 400;
 
-    public static final int PICK_FRAGMENT = 0;
-    public static final int PICKS_FRAGMENT = 1;
+    private static final int PICK_FRAGMENT = 0;
+    private static final int PICKS_FRAGMENT = 1;
 
     private FilepickerContext appContext;
     private Menu menu;

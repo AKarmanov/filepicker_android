@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:paddingBottom="2dp"
-    android:paddingTop="2dp"
-    android:paddingLeft="2dp"
-    android:paddingRight="2dp"
+    android:layout_height="@dimen/action_bar_height"
+    android:paddingBottom="@dimen/action_bar_padding"
+    android:paddingTop="@dimen/action_bar_padding"
+    android:paddingLeft="@dimen/action_bar_padding"
+    android:paddingRight="@dimen/action_bar_padding"
     android:clickable="true"
-    android:background="#ffffff"
+    android:background="@color/action_bar_bg"
     android:layout_alignBottom="@+id/view"
     android:weightSum="3">
 
@@ -21,7 +21,7 @@
         <Button
             android:id="@+id/donePickingButton"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/action_bar_button_height"
             android:textAlignment="center"
             android:textColor="@color/bb_textMedium"
             style="?android:borderlessButtonStyle"
@@ -30,10 +30,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="12sp"
+            android:textSize="@dimen/small_text"
             android:textColor="@color/bb_textLight"
-            android:text="DONE"
-            android:layout_marginTop="-12dp" />
+            android:text="@string/action_bar_done"
+            android:layout_marginTop="@dimen/action_bar_text_top_margin" />
     </LinearLayout>
 
     <LinearLayout
@@ -44,7 +44,7 @@
         <Button
             android:id="@+id/cancelPickingButton"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/action_bar_button_height"
             android:textAlignment="center"
             android:textColor="@color/bb_textMedium"
             style="?android:borderlessButtonStyle"
@@ -53,10 +53,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="12sp"
+            android:textSize="@dimen/small_text"
             android:textColor="@color/bb_textLight"
-            android:text="CANCEL"
-            android:layout_marginTop="-12dp" />
+            android:text="@string/action_bar_cancel"
+            android:layout_marginTop="@dimen/action_bar_text_top_margin" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +67,7 @@
         <Button
             android:id="@+id/configureFilterButton"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/action_bar_button_height"
             android:textAlignment="center"
             android:textColor="@color/bb_textMedium"
             style="?android:borderlessButtonStyle"
@@ -76,9 +76,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="12sp"
+            android:textSize="@dimen/small_text"
             android:textColor="@color/bb_textLight"
-            android:text="VIEW"
-            android:layout_marginTop="-12dp" />
+            android:text="@string/action_bar_view"
+            android:layout_marginTop="@dimen/action_bar_text_top_margin" />
     </LinearLayout>
 </LinearLayout>

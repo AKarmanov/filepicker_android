@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
+    android:padding="@dimen/value_5dp"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="12sp"
+        android:textSize="@dimen/small_text"
         android:textColor="@color/bb_textLight"
-        android:text="--------LAYOUT--------"/>
+        android:text="@string/filter_layout"/>
 
     <GridView
         android:id="@+id/layoutOptions"
@@ -24,9 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="12sp"
+        android:textSize="@dimen/small_text"
         android:textColor="@color/bb_textLight"
-        android:text="--------SORT--------"/>
+        android:text="@string/filter_sort"/>
 
     <GridView
         android:id="@+id/sortOptions"
