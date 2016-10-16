@@ -16,7 +16,8 @@ To use this picker in you project you need to:
 
 ### Launch Activity
 
-Use Filepicker class in you intent for result. Use FilepickerConfig to provide basic settings.
+Use Filepicker class in you intent for result. Use FilepickerConfig to provide basic settings. In response
+you will get a list of FilepickerFile objects.
 
 ## Licence
 
