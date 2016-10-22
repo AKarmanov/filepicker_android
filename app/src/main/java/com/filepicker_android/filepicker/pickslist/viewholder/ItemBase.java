@@ -60,7 +60,6 @@ public class ItemBase extends CommonBase {
         else {
             if (isImage(item)) {
                 loadImage(item);
-                imageView.setVisibility(View.VISIBLE);
             }
             else {
                 icon.setText(R.string.icon_file);

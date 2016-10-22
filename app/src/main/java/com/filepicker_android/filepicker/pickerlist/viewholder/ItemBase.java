@@ -86,7 +86,6 @@ public class ItemBase extends CommonBase implements  View.OnClickListener {
         else {
             if (isImage(item)) {
                 loadImage(item);
-                imageView.setVisibility(View.VISIBLE);
             }
             else {
                 icon.setText(R.string.icon_file);

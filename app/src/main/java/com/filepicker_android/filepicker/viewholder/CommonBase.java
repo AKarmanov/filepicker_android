@@ -23,8 +23,10 @@ import java.io.ByteArrayOutputStream;
 public class CommonBase extends RecyclerView.ViewHolder {
 
     protected HostFragmentInterface hostFragment;
-
     protected final ImageView imageView;
+    protected AsyncTask<FilepickerFile, Integer, Bitmap> imageLoadTask;
+    protected boolean loadingImage = false;
+
 
     public CommonBase(View itemView) {
         super(itemView);
@@ -48,14 +50,20 @@ public class CommonBase extends RecyclerView.ViewHolder {
     }
 
     protected void loadImage(FilepickerFile item) {
+        imageView.setVisibility(View.INVISIBLE);
         Bitmap map = ((FilepickerContext)hostFragment.getAppContext())
                 .getBitmapCache()
                 .getBitmapFromCache(item.getPath());
         if (map != null) {
             imageView.setImageBitmap(map);
+            imageView.setVisibility(View.VISIBLE);
         }
         else {
-            new LoadImageTask().execute(item);
+            if (loadingImage) {
+                imageLoadTask.cancel(true);
+            }
+            imageLoadTask = new LoadImageTask().execute(item);
+            loadingImage = true;
         }
     }
 
@@ -85,6 +93,8 @@ public class CommonBase extends RecyclerView.ViewHolder {
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
             imageView.setImageBitmap(bitmap);
+            loadingImage = false;
+            imageView.setVisibility(View.VISIBLE);
         }
 
         private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
