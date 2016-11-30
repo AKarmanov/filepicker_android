@@ -38,7 +38,7 @@ import java.util.List;
  */
 
 public class FilePicksFragment extends Fragment implements FragmentFilterInterface,
-                                                           HostFragmentInterface {
+        HostFragmentInterface {
 
     private List<FilepickerFile> files;
     private FilePicksAdapter adapter;
@@ -59,8 +59,7 @@ public class FilePicksFragment extends Fragment implements FragmentFilterInterfa
         super.onCreate(savedInstanceState);
         Log.i("****", "Created");
         filepicker = (Filepicker) getActivity();
-        appContext = getActivity().getApplicationContext();
-        files = ((FilepickerContext)appContext).getCollection().getPicks();
+        files = filepicker.getFilepickerContext().getCollection().getPicks();
         FilepickerFilter.sort(files);
         rlu = new RecyclerLayoutUtils();
         adapter = new FilePicksAdapter(getObject());

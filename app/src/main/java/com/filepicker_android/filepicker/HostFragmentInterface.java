@@ -8,4 +8,5 @@ import android.content.Context;
 
 public interface HostFragmentInterface {
     public Context getAppContext();
+    public Filepicker getFilepicker();
 }

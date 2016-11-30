@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.filepicker_android.filepicker.HostFragmentInterface;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.contextual.FilepickerConfig;
-import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 
 import java.io.ByteArrayInputStream;
@@ -51,7 +50,7 @@ public class CommonBase extends RecyclerView.ViewHolder {
 
     protected void loadImage(FilepickerFile item) {
         imageView.setVisibility(View.INVISIBLE);
-        Bitmap map = ((FilepickerContext)hostFragment.getAppContext())
+        Bitmap map = hostFragment.getFilepicker().getFilepickerContext()
                 .getBitmapCache()
                 .getBitmapFromCache(item.getPath());
         if (map != null) {
@@ -80,12 +79,12 @@ public class CommonBase extends RecyclerView.ViewHolder {
             Bitmap bm = BitmapFactory.decodeFile(path);
             Bitmap mutableBitmap = getResizedBitmap(
                     bm,
-                    ((FilepickerContext)hostFragment.getAppContext()).getConfig().getMaxImageSize()
+                    hostFragment.getFilepicker().getFilepickerContext().getConfig().getMaxImageSize()
             );
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             mutableBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             Bitmap map = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
-            ((FilepickerContext)hostFragment.getAppContext()).getBitmapCache().addBitmapToCache(path, map);
+            hostFragment.getFilepicker().getFilepickerContext().getBitmapCache().addBitmapToCache(path, map);
             return map;
         }
 

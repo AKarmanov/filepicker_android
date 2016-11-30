@@ -2,7 +2,6 @@ package com.filepicker_android.filepicker.pickerlist;
 
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,14 +27,14 @@ import java.util.List;
 public class FilePickerAdapter extends RecyclerView.Adapter<CommonBase> {
 
     private List<FilepickerFile> list;
-    private FilepickerContext appContext;
+    private FilepickerContext filepickerContext;
     private Filepicker filepicker;
     private FilePickerFragment pickerFragment;
 
     public FilePickerAdapter(FilePickerFragment pickerFragment) {
         this.filepicker = pickerFragment.getFilepicker();
         this.list = pickerFragment.getFiles();
-        this.appContext = (FilepickerContext) pickerFragment.getAppContext();
+        this.filepickerContext = filepicker.getFilepickerContext();
         this.pickerFragment = pickerFragment;
     }
 
@@ -84,7 +83,7 @@ public class FilePickerAdapter extends RecyclerView.Adapter<CommonBase> {
         return item;
     }
 
-    
+
 
     @Override
     public void onBindViewHolder(CommonBase holder, int position) {

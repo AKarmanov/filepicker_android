@@ -1,14 +1,12 @@
 package com.filepicker_android.filepicker.pickerlist;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,14 +20,11 @@ import com.filepicker_android.filepicker.FragmentFilterInterface;
 import com.filepicker_android.filepicker.HostFragmentInterface;
 import com.filepicker_android.filepicker.R;
 import com.filepicker_android.filepicker.RecyclerLayoutUtils;
-import com.filepicker_android.filepicker.contextual.FilepickerContext;
 import com.filepicker_android.filepicker.contextual.DirectoryExplorer;
 import com.filepicker_android.filepicker.contextual.FilepickerFile;
 import com.filepicker_android.filepicker.contextual.FilepickerFilter;
 
-import java.awt.font.TextAttribute;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,14 +34,13 @@ import java.util.List;
  */
 
 public class FilePickerFragment extends Fragment implements FragmentFilterInterface,
-                                                            HostFragmentInterface {
+        HostFragmentInterface {
 
     private static final String SAVED_PATHS = "paths";
     private static final String BACK_PATH = "backPath";
     private DirectoryExplorer de;
     private List<FilepickerFile> files;
     private FilePickerAdapter adapter;
-    private Context appContext;
     private Filepicker filepicker;
     private RecyclerView recycler;
     private RecyclerView.LayoutManager layoutManager;
@@ -61,8 +55,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         filepicker = (Filepicker) getActivity();
-        appContext = getActivity().getApplicationContext();
-        de = ((FilepickerContext)appContext).getDirectoryExplorer();
+        de = filepicker.getFilepickerContext().getDirectoryExplorer();
         if (savedInstanceState != null) {
             de.setVisitedPaths(savedInstanceState.getStringArrayList(SAVED_PATHS));
         }
@@ -89,7 +82,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
         recycler = (RecyclerView) v.findViewById(R.id.recycler);
         configureLayout();
         setHasOptionsMenu(true);
-        filepicker.setTitle(((FilepickerContext)appContext).getConfig().getTitle());
+        filepicker.setTitle(filepicker.getFilepickerContext().getConfig().getTitle());
         return v;
     }
 
@@ -113,13 +106,13 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
         List<String> paths = de.getVisitedPaths();
         for (int i = 0; i < paths.size(); i++) {
             String path = paths.get(i);
-            TextView tv = new TextView(appContext);
+            TextView tv = new TextView(filepicker.getApplicationContext());
             tv.setText(" / ");
             tv.setTextColor(Color.DKGRAY);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f);
             v.addView(tv);
 
-            Button b = new Button(appContext);
+            Button b = new Button(filepicker.getApplicationContext());
             int index = path.lastIndexOf("/") == 0 ? 0 : path.lastIndexOf("/") + 1;
             String p = path.substring(index);
             b.setText(p.equals("0") ? "Home" : p);
@@ -137,7 +130,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
         protected List<FilepickerFile> doInBackground(String... paths) {
             return de.getFiles(
                     paths[0],
-                    ((FilepickerContext)appContext).getCollection().getPicksPaths()
+                    filepicker.getFilepickerContext().getCollection().getPicksPaths()
             );
         }
 
@@ -168,7 +161,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
     }
 
     public Context getAppContext() {
-        return appContext;
+        return filepicker.getApplicationContext();
     }
 
     public Filepicker getFilepicker() {

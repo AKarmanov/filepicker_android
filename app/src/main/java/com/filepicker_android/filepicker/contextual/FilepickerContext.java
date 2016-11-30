@@ -1,6 +1,7 @@
 package com.filepicker_android.filepicker.contextual;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Typeface;
 
 import java.util.Map;
@@ -9,15 +10,19 @@ import java.util.Map;
  * @author alexander karmanov on 2016-10-04.
  */
 
-public class FilepickerContext extends Application {
+public class FilepickerContext {
 
     private FilepickerConfig config;
     private FilepickerCollection collection;
     private Map<String, Typeface> typeFaces;
     private DirectoryExplorer directoryExplorer;
     private BitmapCache bitmapCache;
+    private Context applicationContext;
 
-    public FilepickerContext() {}
+    public FilepickerContext(Context applicationCtx) {
+        this.applicationContext = applicationCtx;
+        make();
+    }
 
     public FilepickerConfig getConfig() {
         return config;
@@ -43,11 +48,13 @@ public class FilepickerContext extends Application {
         return bitmapCache;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
+    public Context getApplicationContext() {
+        return applicationContext;
+    }
+
+    public void make() {
         collection = new FilepickerCollection();
-        typeFaces = new TypeFaces(getApplicationContext()).getTypefaces();
+        typeFaces = new TypeFaces(applicationContext).getTypefaces();
         config = new FilepickerConfig();
         directoryExplorer = new DirectoryExplorer();
         bitmapCache = new BitmapCache();
