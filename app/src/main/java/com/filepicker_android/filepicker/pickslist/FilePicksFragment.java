@@ -77,6 +77,7 @@ public class FilePicksFragment extends Fragment implements FragmentFilterInterfa
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.filepicker_picks_container, container, false);
         recycler = (RecyclerView) v.findViewById(R.id.recycler);
+        recycler.setAdapter(null);
         configureLayout();
         Log.i("****", "View created");
         setHasOptionsMenu(true);

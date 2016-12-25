@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -38,6 +39,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
 
     private static final String SAVED_PATHS = "paths";
     private static final String BACK_PATH = "backPath";
+    private static final String FILE_PICKS = "filePicks";
     private DirectoryExplorer de;
     private List<FilepickerFile> files;
     private FilePickerAdapter adapter;
@@ -47,32 +49,41 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
     private RecyclerLayoutUtils rlu;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         filepicker = (Filepicker) getActivity();
         de = filepicker.getFilepickerContext().getDirectoryExplorer();
         if (savedInstanceState != null) {
             de.setVisitedPaths(savedInstanceState.getStringArrayList(SAVED_PATHS));
+            filepicker.getFilepickerContext().getCollection().setPicks(
+                    (List<FilepickerFile>) savedInstanceState.get(FILE_PICKS)
+            );
         }
         rlu = new RecyclerLayoutUtils();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putStringArrayList(SAVED_PATHS, (ArrayList<String>) de.getVisitedPaths());
         outState.putString(BACK_PATH, de.getBackPath());
-        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(
+                FILE_PICKS,
+                (ArrayList<? extends Parcelable>)
+                        filepicker.getFilepickerContext().getCollection().getPicks()
+        );
+        //super.onSaveInstanceState(outState);
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View filePickerContainer = container.findViewById(R.id.view);
         View v;
         if (filePickerContainer != null) {
@@ -80,6 +91,7 @@ public class FilePickerFragment extends Fragment implements FragmentFilterInterf
         }
         v = inflater.inflate(R.layout.filepicker_container, container, false);
         recycler = (RecyclerView) v.findViewById(R.id.recycler);
+        recycler.setAdapter(null);
         configureLayout();
         setHasOptionsMenu(true);
         filepicker.setTitle(filepicker.getFilepickerContext().getConfig().getTitle());

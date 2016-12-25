@@ -19,6 +19,10 @@ public class FilepickerCollection {
         picks.add(file);
     }
 
+    public void setPicks(List<FilepickerFile> picks) {
+        this.picks = picks;
+    }
+
     public void removeFile(FilepickerFile file) {
         for (int i = 0; i < picks.size(); i++) {
             if (picks.get(i).getPath().equals(file.getPath())) {

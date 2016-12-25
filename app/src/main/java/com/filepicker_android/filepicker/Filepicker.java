@@ -1,7 +1,6 @@
 package com.filepicker_android.filepicker;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,8 +37,9 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+//        super.onCreate(savedInstanceState);
         appContext = new FilepickerContext(getApplicationContext());
+        super.onCreate(savedInstanceState);
         FilepickerConfig config = getIntent().getParcelableExtra(FilepickerConfig.EXTRA_CONFIG);
         if (config != null) {
             appContext.setConfig(config);
@@ -49,6 +49,11 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
             transitionFragment(PICK_FRAGMENT);
             addActionBar();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override
