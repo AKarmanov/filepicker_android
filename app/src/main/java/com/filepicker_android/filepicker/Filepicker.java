@@ -63,7 +63,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
         //Filepicker at root path only way back is to calling activity
         if (getSupportFragmentManager().getBackStackEntryCount() == 1 && atRootPath) {
-            goBackToCallingActivity(true);
+            goBackToCallingActivity(false);
         } //Filepicker has navigated away from root so visit back those paths first
         else if (getSupportFragmentManager().getBackStackEntryCount() == 1 && !atRootPath) {
             String path = de.getBackPath();
