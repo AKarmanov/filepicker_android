@@ -66,7 +66,7 @@ public class ItemBase extends CommonBase implements  View.OnClickListener {
 
     @Override
     public void setUpView(FilepickerFile item) {
-        FilepickerContext appContext = (FilepickerContext) hostFragment.getAppContext();
+        FilepickerContext appContext = hostFragment.getFilepicker().getFilepickerContext();
 
         fileName.setText(item.getName());
         if (!appContext.fileSelectable(item)) {
@@ -86,7 +86,6 @@ public class ItemBase extends CommonBase implements  View.OnClickListener {
         else {
             if (isImage(item)) {
                 loadImage(item);
-                imageView.setVisibility(View.VISIBLE);
             }
             else {
                 icon.setText(R.string.icon_file);

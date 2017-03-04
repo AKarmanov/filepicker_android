@@ -53,7 +53,7 @@ public class ActionTabFragment extends Fragment {
 
     private void prepareDoneButton(View v) {
         Button button = (Button) v.findViewById(R.id.donePickingButton);
-        button.setTypeface(filepicker.getAppContext().getTypeFaces().get("fontAwesome"));
+        button.setTypeface(filepicker.getFilepickerContext().getTypeFaces().get("fontAwesome"));
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +64,7 @@ public class ActionTabFragment extends Fragment {
 
     private void prepareCancelButton(View v) {
         Button button = (Button) v.findViewById(R.id.cancelPickingButton);
-        button.setTypeface(filepicker.getAppContext().getTypeFaces().get("fontAwesome"));
+        button.setTypeface(filepicker.getFilepickerContext().getTypeFaces().get("fontAwesome"));
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +75,7 @@ public class ActionTabFragment extends Fragment {
 
     private void prepareDialogButton(View v) {
         Button button = (Button) v.findViewById(R.id.configureFilterButton);
-        button.setTypeface(filepicker.getAppContext().getTypeFaces().get("fontAwesome"));
+        button.setTypeface(filepicker.getFilepickerContext().getTypeFaces().get("fontAwesome"));
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,7 +145,7 @@ public class ActionTabFragment extends Fragment {
                 l = dr.getLayoutCell(
                         getActivity(),
                         options.get(position),
-                        filepicker.getAppContext()
+                        filepicker.getFilepickerContext()
                 );
             }
             else {

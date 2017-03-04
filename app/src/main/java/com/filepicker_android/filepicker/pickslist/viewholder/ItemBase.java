@@ -37,7 +37,7 @@ public class ItemBase extends CommonBase {
     public TextView getFileName() {
         return fileName;
     }
-    
+
     public Button getremoveButton() {
         return removeButton;
     }
@@ -50,7 +50,7 @@ public class ItemBase extends CommonBase {
 
     @Override
     public void setUpView(FilepickerFile item) {
-        FilepickerContext appContext = (FilepickerContext) hostFragment.getAppContext();
+        FilepickerContext appContext = hostFragment.getFilepicker().getFilepickerContext();
         fileName.setText(item.getName());
 
         if (item.isDir()) {
@@ -60,7 +60,6 @@ public class ItemBase extends CommonBase {
         else {
             if (isImage(item)) {
                 loadImage(item);
-                imageView.setVisibility(View.VISIBLE);
             }
             else {
                 icon.setText(R.string.icon_file);

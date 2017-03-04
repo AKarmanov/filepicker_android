@@ -1,7 +1,6 @@
 package com.filepicker_android.filepicker;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,8 +37,9 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+        appContext = new FilepickerContext(getApplicationContext());
         super.onCreate(savedInstanceState);
-        appContext = (FilepickerContext) getApplicationContext();
         FilepickerConfig config = getIntent().getParcelableExtra(FilepickerConfig.EXTRA_CONFIG);
         if (config != null) {
             appContext.setConfig(config);
@@ -52,13 +52,18 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onBackPressed() {
         DirectoryExplorer de = appContext.getDirectoryExplorer();
         boolean atRootPath = de.getVisitedPaths().size() == 1;
 
         //Filepicker at root path only way back is to calling activity
         if (getSupportFragmentManager().getBackStackEntryCount() == 1 && atRootPath) {
-            goBackToCallingActivity(true);
+            goBackToCallingActivity(false);
         } //Filepicker has navigated away from root so visit back those paths first
         else if (getSupportFragmentManager().getBackStackEntryCount() == 1 && !atRootPath) {
             String path = de.getBackPath();
@@ -161,7 +166,7 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
         }
     }
 
-    public FilepickerContext getAppContext() {
+    public FilepickerContext getFilepickerContext() {
         return appContext;
     }
 
