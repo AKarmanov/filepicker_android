@@ -37,7 +37,6 @@ public class Filepicker extends AppCompatActivity implements FragmentToActivityI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         appContext = new FilepickerContext(getApplicationContext());
         super.onCreate(savedInstanceState);
         FilepickerConfig config = getIntent().getParcelableExtra(FilepickerConfig.EXTRA_CONFIG);
